@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Integravision Studio</title>
@@ -9,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f9fafb; color: #1e3a8a; }
-    header {
+        header {
       background-color: #1e3a8a;
       color: white;
       padding: 2rem 1.5rem;
@@ -24,7 +27,16 @@
     header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
     header p { font-size: 1.2rem; margin-bottom: 1rem; }
     .hero-button { background-color: #14b8a6; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; text-decoration: none; }
-    h2 { text-align: center; color: #1e3a8a; margin-top: 2rem; }
+    .logo-redondo {
+      width: 225px;
+      height: 225px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      border: 4px solid #888;
+      background-color: white;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -42,94 +54,6 @@
     .gallery-grid img:hover {
       transform: scale(1.05);
     }
-    .lightbox {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      flex-direction: column;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 8px;
-    }
-    .controls {
-      margin-top: 1rem;
-      display: flex;
-      gap: 1rem;
-      color: white;
-      font-size: 2rem;
-    }
-    .controls i {
-      cursor: pointer;
-    }
-    .logo-redondo {
-  width: 225px;
-  height: 225px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  border: 4px solid #888;
-  background-color: white;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-    .logo-redondo:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-    }
-    form {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 1.5rem;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    form label {
-  display: block;
-  margin-bottom: 0.3rem;
-  color: #1e3a8a;
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-}
-    form input,
-form textarea {
-  width: 90%;
-  padding: 0.85rem 1rem;
-  margin-bottom: 1.2rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  background-color: #fefefe;
-  transition: border 0.3s ease, box-shadow 0.3s ease;
-}
-form input:focus,
-form textarea:focus {
-  border-color: #14b8a6;
-  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.2);
-  outline: none;
-}
-    form button {
-  background-color: #14b8a6;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-form button:hover {
-  background-color: #0d9488;
-  transform: scale(1.03);
-}
     #gracias {
       text-align: center;
       background-color: #e0f7fa;
@@ -160,173 +84,126 @@ form button:hover {
       transition: background-color 0.3s ease;
     }
     #gracias button:hover {
-  background-color: #0d9488;
-}
-      @media (max-width: 768px) {
-  header {
-    flex-direction: column-reverse;
-    text-align: center;
-    padding-bottom: 6rem;
-  }
-  header div {
-    padding-left: 0 !important;
-    text-align: center;
-  }
-  .logo-redondo {
-    position: static !important;
-    margin: 1rem auto 0 auto;
-    width: 180px;
-    height: 180px;
-  }
-  #contacto {
-    flex-direction: column;
-    padding: 1rem;
-  }
-  #contacto > div {
-    width: 100% !important;
-  }
-  form input,
-  form textarea {
-    width: 100%;
-  }
-}
-      header div {
-        padding-left: 0;
-      }
-      .logo-redondo {
-        margin-bottom: 1rem;
-      }
-      #contacto {
-        flex-direction: column;
-      }
-      #contacto > div {
-        width: 100% !important;
-      }
+      background-color: #0d9488;
     }
-</style>
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
 </head>
 <body>
+  <div id="loader" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000;">
+    <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png" alt="Cargando" style="width: 270px; height: 270px; animation: pulse 1.5s infinite;">
+    <p style="margin-top: 1rem; font-size: 1rem; color: #1e3a8a;">Cargando contenido...</p>
+    <button id="skipLoader" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.9rem; background-color: #14b8a6; color: white; border: none; border-radius: 4px; cursor: pointer;">Saltar</button>
+    <div style="width: 100px; height: 6px; margin-top: 20px; background-color: #ccc; border-radius: 4px; overflow: hidden;">
+      <div id="loader-bar" style="height: 100%; width: 0%; background-color: #14b8a6; transition: width 2s ease;"></div>
+    </div>
+  </div>
+
   <header>
     <div style="flex: 1; padding-left: 18rem; text-align: left;">
       <h1>IntegraVision Studio</h1>
       <p>Transformamos la educación a través de soluciones audiovisuales integradas.</p>
     </div>
-    <div style="position: relative; width: 100%; display: flex; justify-content: flex-start;">
-  <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png" alt="Logo Integravision" class="logo-redondo" style="position: absolute; left: 2rem; bottom: -75px; z-index: 10;" />
-</div>
+    <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png" alt="Logo Integravision" class="logo-redondo" />
   </header>
   <div style="text-align: center; margin-top: 6rem;">
     <a class="hero-button" href="#contacto">Contáctanos</a>
   </div>
   <main>
     <section>
-      <h2>Galería de Proyectos</h2>
-      <div class="gallery-grid" id="gallery"></div>
-      <div class="lightbox" id="lightbox">
-        <img src="" alt="Imagen ampliada" id="lightbox-img">
-        <div class="controls">
-          <i class="fas fa-chevron-left" id="prev"></i>
-          <i class="fas fa-times" id="close"></i>
-          <i class="fas fa-chevron-right" id="next"></i>
-        </div>
+      <h2 style="text-align:center; color:#1e3a8a; font-size:2rem; margin-top:2rem;">Galería de Proyectos</h2>
+      <div class="gallery-grid">
+        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg" alt="Proyecto 1">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg" alt="Proyecto 2">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg" alt="Proyecto 3">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg" alt="Proyecto 4">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg" alt="Proyecto 5">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg" alt="Proyecto 6">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-12-10%2012.56.50.jpg" alt="Proyecto 7">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2014-09-30_02_47_14.gif" alt="Proyecto 8">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20160829_122833_HDR.jpg" alt="Proyecto 9">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20190307_082923_HDR.jpg" alt="Proyecto 10">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/4.png" alt="Proyecto 11">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6D5DFE3FEA648B4F1C6E88709F1277A3_7C0.jpeg" alt="Proyecto 12">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6b46cb2d-f6a3-422b-b964-50ae060f882a.jpg" alt="Proyecto 13">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/7340b7fc-1c47-4ec1-b24e-3ef4d5868f54.jpg" alt="Proyecto 14">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/9d580304-14e2-467e-8400-b8e4c4a72cf0.jpg" alt="Proyecto 15">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DIRECTORIO%20TVS.jpg" alt="Proyecto 16">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DMC-FZ70721.JPG" alt="Proyecto 17">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/Dise%C3%B1o%20de%20aula.png" alt="Proyecto 18">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0043.jpg" alt="Proyecto 19">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0097.jpg" alt="Proyecto 20">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0099.jpg" alt="Proyecto 21">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%202.png" alt="Proyecto 22">
+<img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%20310717.png" alt="Proyecto 23">
       </div>
     </section>
-    <section id="contacto" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; align-items: flex-start; box-sizing: border-box; padding: 1rem;">
-  <div style="flex: 1 1 500px;">
-    <h2>Contáctanos</h2>
-    <form action="https://formspree.io/f/mvgrwyzz" method="POST" style="box-sizing: border-box; width: 100%; max-width: 100%; overflow-wrap: break-word;">
-      <label for="name"><i class="fas fa-user"></i> Nombre</label>
-<input type="text" id="name" name="name" required>
-      <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
-<input type="email" id="email" name="email" required>
-      <label for="message"><i class="fas fa-comment-dots"></i> Mensaje</label>
-<textarea id="message" name="message" rows="5" required></textarea>
-      <button type="submit">Enviar</button>
-      <input type="hidden" name="_redirect" value="https://integravisionstudio.dedyn.io/#gracias">
-    </form>
-  </div>
-  <div style="flex: 1 1 350px; padding: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-    <img src="https://www.ravepubs.com/wp-content/themes/md-changes/img/rave-logo.png" alt="rAVe [PUBS] Logo" style="max-width: 120px; display: block; margin: 0 auto 1rem auto;">
-    <h2 style="color: #1e3a8a;">📰 Noticias rAVe [PUBS]</h2>
-    <ul id="rave-feed" style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.6; text-align: left;"></ul>
-  </div>
-</section>
-<script>
-  fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.ravepubs.com/feed/')
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById('rave-feed');
-      if (!data.items) return;
-      data.items.slice(0, 5).forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${item.link}" target="_blank" style="color: #1e3a8a; text-decoration: none;">${item.title}</a><br><small style='color:#666;'>${new Date(item.pubDate).toLocaleDateString()}</small>`;
-        container.appendChild(li);
-      });
-    })
-    .catch(() => {
-      document.getElementById('rave-feed').innerHTML = '<li>No se pudo cargar el feed.</li>';
-    });
-</script>
-
-<section id="gracias">
-      <h2>✅ Gracias por contactarnos</h2>
+    <section id="contacto" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; align-items: flex-start; padding: 2rem; background-color: #ffffff; border-top: 3px solid #14b8a6;">
+      <div style="flex: 1 1 500px;">
+        <h2>Contáctanos</h2>
+        <form action="https://formspree.io/f/mvgrwyzz" method="POST" style="box-sizing: border-box; max-width: 600px; margin: auto; padding: 1.5rem; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+          <label for="name"><i class="fas fa-user"></i> Nombre</label>
+          <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+          <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
+          <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+          <label for="message"><i class="fas fa-comment-dots"></i> Mensaje</label>
+          <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;"></textarea>
+          <button type="submit" style="background-color: #14b8a6; color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; border-radius: 4px; cursor: pointer;">Enviar</button>
+          <input type="hidden" name="_redirect" value="https://integravisionstudio.dedyn.io/#gracias">
+        </form>
+      </div>
+      <div id="rave-news" style="flex: 1 1 350px; padding: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+        <img src="https://www.ravepubs.com/wp-content/themes/md-changes/img/rave-logo.png" alt="rAVe [PUBS] Logo" style="max-width: 120px; display: block; margin: 0 auto 1rem auto;">
+        <h2 style="color: #1e3a8a;">📰 Noticias rAVe [PUBS]</h2>
+        <ul id="rave-feed" style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.6; text-align: left;"></ul>
+      </div>
+    </section>
+    <section id="gracias">
+      <h2 style="color:#14b8a6;">✅ Gracias por contactarnos</h2>
       <p>Hemos recibido tu mensaje y nos pondremos en contacto contigo pronto.</p>
       <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">Volver arriba</button>
     </section>
   </main>
+
   <script>
-    const gallery = document.getElementById('gallery');
-    const images = [
-      "08-parltante%20-%202%20unidades.jpg",
-      "09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg",
-      "2012-01-24%2010.33.29.jpg",
-      "2012-02-03%2012.47.38.jpg",
-      "2012-09-24%2012.35.19.jpg",
-      "2012-09-24%2012.36.56.jpg",
-      "2012-12-10%2012.56.50.jpg",
-      "2014-09-30_02_47_14.gif",
-      "20160829_122833_HDR.jpg",
-      "20190307_082923_HDR.jpg",
-      "4.png",
-      "6D5DFE3FEA648B4F1C6E88709F1277A3_7C0.jpeg",
-      "6b46cb2d-f6a3-422b-b964-50ae060f882a.jpg",
-      "7340b7fc-1c47-4ec1-b24e-3ef4d5868f54.jpg",
-      "9d580304-14e2-467e-8400-b8e4c4a72cf0.jpg",
-      "DIRECTORIO%20TVS.jpg",
-      "DMC-FZ70721.JPG",
-      "Dise%C3%B1o%20de%20aula.png",
-      "IMAG0043.jpg",
-      "IMAG0097.jpg",
-      "IMAG0099.jpg",
-      "dise%C3%B1o%20de%20rack%20tv%202.png",
-      "dise%C3%B1o%20de%20rack%20tv%20310717.png",
-      ];
-    const baseURL = "https://raw.githubusercontent.com/tomcorc64/integravision-web/main/";
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    let currentIndex = 0;
-
-    images.forEach((img, i) => {
-      const image = document.createElement('img');
-      image.src = baseURL + img;
-      image.alt = `Proyecto ${i + 1}`;
-      image.addEventListener('click', () => {
-        currentIndex = i;
-        lightboxImg.src = image.src;
-        lightbox.style.display = 'flex';
+    fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.ravepubs.com/feed/')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('rave-feed');
+        if (!data.items) return;
+        data.items.slice(0, 5).forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${item.link}" target="_blank" style="color: #1e3a8a; text-decoration: none;">${item.title}</a><br><small style='color:#666;'>${new Date(item.pubDate).toLocaleDateString()}</small>`;
+          container.appendChild(li);
+        });
+      })
+      .catch(() => {
+        document.getElementById('rave-feed').innerHTML = '<li>No se pudo cargar el feed.</li>';
       });
-      gallery.appendChild(image);
-    });
+  </script>
 
-    document.getElementById('close').onclick = () => lightbox.style.display = 'none';
-    document.getElementById('next').onclick = () => {
-      currentIndex = (currentIndex + 1) % images.length;
-      lightboxImg.src = baseURL + images[currentIndex];
-    };
-    document.getElementById('prev').onclick = () => {
-      currentIndex = (currentIndex - 1 + images.length) % images.length;
-      lightboxImg.src = baseURL + images[currentIndex];
-    };
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const bar = document.getElementById('loader-bar');
+      const skipBtn = document.getElementById('skipLoader');
+      const loader = document.getElementById('loader');
+
+      bar.style.width = '100%';
+      setTimeout(hideLoader, 2000);
+      skipBtn.addEventListener('click', hideLoader);
+
+      function hideLoader() {
+        if (loader) {
+          loader.style.transition = 'opacity 0.5s ease';
+          loader.style.opacity = '0';
+          setTimeout(() => loader.style.display = 'none', 500);
+        }
+      }
+    });
   </script>
 </body>
 </html>
