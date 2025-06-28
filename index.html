@@ -162,10 +162,33 @@ form button:hover {
   background-color: #0d9488;
 }
       @media (max-width: 768px) {
-      header {
-        flex-direction: column-reverse;
-        text-align: center;
-      }
+  header {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding-bottom: 6rem;
+  }
+  header div {
+    padding-left: 0 !important;
+    text-align: center;
+  }
+  .logo-redondo {
+    position: static !important;
+    margin: 1rem auto 0 auto;
+    width: 180px;
+    height: 180px;
+  }
+  #contacto {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  #contacto > div {
+    width: 100% !important;
+  }
+  form input,
+  form textarea {
+    width: 100%;
+  }
+}
       header div {
         padding-left: 0;
       }
@@ -242,7 +265,6 @@ form button:hover {
     .catch(() => {
       document.getElementById('rave-feed').innerHTML = '<li>No se pudo cargar el feed.</li>';
     });
-</script>
 </script>
 
 <section id="gracias">
