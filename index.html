@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Integravision Studio</title>
   <!-- Favicon actualizado desde GitHub -->
-  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png">
-  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #f9fafb; color: #1e3a8a; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fafb;
+      color: #1e3a8a;
+    }
+    .main-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: inherit;
+      box-sizing: border-box;
+    }
+
     /* Pantalla de carga */
     #loader-bg {
       position: fixed;
       z-index: 99999;
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
       background: #f9fafb;
       display: flex;
       flex-direction: column;
@@ -27,22 +43,29 @@
     }
     #loader-floating {
       position: absolute;
-      width: 100vw; height: 100vh;
-      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
       pointer-events: none;
       z-index: 1;
     }
-    .floating-img, .floating-section {
+    .floating-img,
+    .floating-section {
       position: absolute;
       opacity: 0.28;
       border-radius: 18px;
       user-select: none;
       pointer-events: none;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
       will-change: transform;
       animation: floatBounce 3s linear infinite;
     }
-    .floating-img { width: 120px; height: 80px; object-fit: cover; }
+    .floating-img {
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+    }
     .floating-section {
       background: #fff;
       padding: 24px 32px;
@@ -55,9 +78,15 @@
       border: 1.5px solid #b0b0b0;
     }
     @keyframes floatBounce {
-      0% { filter: blur(0px);}
-      50% { filter: blur(2px);}
-      100% { filter: blur(0px);}
+      0% {
+        filter: blur(0px);
+      }
+      50% {
+        filter: blur(2px);
+      }
+      100% {
+        filter: blur(0px);
+      }
     }
     #loader-logo-container {
       display: flex;
@@ -78,9 +107,15 @@
       z-index: 2;
     }
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(20,184,166,0.4);}
-      70% { box-shadow: 0 0 0 37.5px rgba(20,184,166,0);}
-      100% { box-shadow: 0 0 0 0 rgba(20,184,166,0);}
+      0% {
+        box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 37.5px rgba(20, 184, 166, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(20, 184, 166, 0);
+      }
     }
     #loader-bar-bg {
       width: 320px;
@@ -89,16 +124,17 @@
       border-radius: 7px;
       overflow: hidden;
       margin: 0 auto;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       z-index: 2;
     }
     #loader-bar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg,#14b8a6 60%,#1e3a8a 100%);
+      background: linear-gradient(90deg, #14b8a6 60%, #1e3a8a 100%);
       border-radius: 7px 0 0 7px;
       transition: width 0.2s;
     }
+
     /* Resto del sitio */
     header {
       background-color: #1e3a8a;
@@ -108,8 +144,14 @@
       text-align: center;
       position: relative;
     }
-    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    header p { font-size: 1.2rem; margin-bottom: 1rem; }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
     .hero-button {
       background-color: #14b8a6;
       color: white;
@@ -133,8 +175,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 10px;
-      max-width: 1000px;
-      margin: auto;
       padding: 1rem;
     }
     .gallery-grid img {
@@ -143,12 +183,16 @@
       transition: transform 0.3s;
       cursor: pointer;
     }
-    .gallery-grid img:hover { transform: scale(1.05); }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+    }
     .lightbox {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0, 0, 0, 0.9);
       justify-content: center;
       align-items: center;
@@ -177,148 +221,362 @@
   <div id="loader-bg">
     <div id="loader-floating"></div>
     <div id="loader-logo-container">
-      <img id="loader-logo" src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png" alt="Logo Integravision">
+      <img id="loader-logo" src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png" alt="Logo Integravision" />
     </div>
     <div id="loader-bar-bg">
       <div id="loader-bar"></div>
     </div>
   </div>
 
-  <header>
-    <div style="text-align: right; padding-top: position: relative; z-index: 1;">
-      <h1>IntegraVision Studio</h1>
-      <p>Educación a través de soluciones audiovisuales integradas.</p>
+  <div class="main-container">
+    <header>
+      <div style="text-align: right; padding-top: position: relative; z-index: 1;">
+        <h1>IntegraVision Studio</h1>
+        <p>Educación a través de soluciones audiovisuales integradas.</p>
+      </div>
+      <img
+        src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png"
+        alt="Logo Integravision"
+        class="logo-redondo"
+      />
+    </header>
+    <div style="text-align: center; margin-top: 6rem;">
+      <a class="hero-button" href="#contacto">Contáctanos</a>
     </div>
-    <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png" alt="Logo Integravision" class="logo-redondo" />
-  </header>
-  <div style="text-align: center; margin-top: 6rem;">
-    <a class="hero-button" href="#contacto">Contáctanos</a>
+    <main>
+      <section>
+        <h2 style="text-align:center; color:#1e3a8a; font-size:2rem; margin-top:2rem;">Galería de Proyectos</h2>
+        <div class="gallery-grid" id="gallery">
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg"
+            alt="Proyecto 1"
+            onclick="openLightbox(0)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg"
+            alt="Proyecto 2"
+            onclick="openLightbox(1)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg"
+            alt="Proyecto 3"
+            onclick="openLightbox(2)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg"
+            alt="Proyecto 4"
+            onclick="openLightbox(3)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg"
+            alt="Proyecto 5"
+            onclick="openLightbox(4)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg"
+            alt="Proyecto 6"
+            onclick="openLightbox(5)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-12-10%2012.56.50.jpg"
+            alt="Proyecto 7"
+            onclick="openLightbox(6)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2014-09-30_02_47_14.gif"
+            alt="Proyecto 8"
+            onclick="openLightbox(7)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20160829_122833_HDR.jpg"
+            alt="Proyecto 9"
+            onclick="openLightbox(8)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20190307_082923_HDR.jpg"
+            alt="Proyecto 10"
+            onclick="openLightbox(9)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/4.png"
+            alt="Proyecto 11"
+            onclick="openLightbox(10)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6D5DFE3FEA648B4F1C6E88709F1277A3_7C0.jpeg"
+            alt="Proyecto 12"
+            onclick="openLightbox(11)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6b46cb2d-f6a3-422b-b964-50ae060f882a.jpg"
+            alt="Proyecto 13"
+            onclick="openLightbox(12)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/7340b7fc-1c47-4ec1-b24e-3ef4d5868f54.jpg"
+            alt="Proyecto 14"
+            onclick="openLightbox(13)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/9d580304-14e2-467e-8400-b8e4c4a72cf0.jpg"
+            alt="Proyecto 15"
+            onclick="openLightbox(14)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DIRECTORIO%20TVS.jpg"
+            alt="Proyecto 16"
+            onclick="openLightbox(15)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DMC-FZ70721.JPG"
+            alt="Proyecto 17"
+            onclick="openLightbox(16)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/Dise%C3%B1o%20de%20aula.png"
+            alt="Proyecto 18"
+            onclick="openLightbox(17)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0043.jpg"
+            alt="Proyecto 19"
+            onclick="openLightbox(18)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0097.jpg"
+            alt="Proyecto 20"
+            onclick="openLightbox(19)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0099.jpg"
+            alt="Proyecto 21"
+            onclick="openLightbox(20)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%202.png"
+            alt="Proyecto 22"
+            onclick="openLightbox(21)"
+          />
+          <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%20310717.png"
+            alt="Proyecto 23"
+            onclick="openLightbox(22)"
+          />
+        </div>
+      </section>
+      <div class="lightbox" id="lightbox">
+        <img id="lightbox-img" src="" alt="Imagen ampliada" />
+        <div class="controls">
+          <i class="fas fa-arrow-left" onclick="navigateLightbox(-1)"></i>
+          <i class="fas fa-times" onclick="closeLightbox()"></i>
+          <i class="fas fa-arrow-right" onclick="navigateLightbox(1)"></i>
+        </div>
+      </div>
+      <script>
+        let currentImage = 0;
+        const images = document.querySelectorAll('.gallery-grid img');
+        function openLightbox(index) {
+          currentImage = index;
+          const lightbox = document.getElementById('lightbox');
+          const lightboxImg = document.getElementById('lightbox-img');
+          lightboxImg.src = images[currentImage].src;
+          lightbox.style.display = 'flex';
+        }
+        function closeLightbox() {
+          document.getElementById('lightbox').style.display = 'none';
+        }
+        function navigateLightbox(dir) {
+          currentImage = (currentImage + dir + images.length) % images.length;
+          document.getElementById('lightbox-img').src = images[currentImage].src;
+        }
+      </script>
+      <section id="rave-news" style="padding: 2rem">
+        <h3 style="text-align:center">
+          <img
+            src="https://www.ravepubs.com/wp-content/themes/md-changes/img/rave-logo.png"
+            alt="RavePubs"
+            style="height: 24px; vertical-align: middle"
+          />
+          Noticias rAVe [PUBS]
+        </h3>
+        <ul id="rave-feed" style="list-style:none; padding:0; max-width:600px; margin:auto"></ul>
+      </section>
+      <script>
+        fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.ravepubs.com/feed/')
+          .then((res) => res.json())
+          .then((data) => {
+            const container = document.getElementById('rave-feed');
+            if (!data.items) return;
+            data.items.slice(0, 5).forEach((item) => {
+              const li = document.createElement('li');
+              li.innerHTML = `<a href="${item.link}" target="_blank" style="color: #1e3a8a; text-decoration: none;">${item.title}</a><br><small style='color:#666;'>${new Date(
+                item.pubDate
+              ).toLocaleDateString()}</small>`;
+              container.appendChild(li);
+            });
+          })
+          .catch(() => {
+            document.getElementById('rave-feed').innerHTML = '<li>No se pudo cargar el feed.</li>';
+          });
+      </script>
+      <section
+        id="contacto"
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 2rem;
+          align-items: flex-start;
+          padding: 2rem;
+          background-color: #ffffff;
+          border-top: 3px solid #14b8a6;
+        "
+      >
+        <div style="flex: 1 1 500px">
+          <h2>Contáctanos</h2>
+          <form
+            action="https://formspree.io/f/mvgrwyzz"
+            method="POST"
+            style="
+              box-sizing: border-box;
+              max-width: 600px;
+              margin: auto;
+              padding: 1.5rem;
+              background-color: #fff;
+              border-radius: 8px;
+              box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            "
+          >
+            <label for="name"><i class="fas fa-user"></i> Nombre</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              style="
+                width: 100%;
+                padding: 0.75rem;
+                margin-bottom: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 1rem;
+              "
+            />
+            <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              style="
+                width: 100%;
+                padding: 0.75rem;
+                margin-bottom: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 1rem;
+              "
+            />
+            <label for="message"><i class="fas fa-comment-dots"></i> Mensaje</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              required
+              style="
+                width: 100%;
+                padding: 0.75rem;
+                margin-bottom: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 1rem;
+              "
+            ></textarea>
+            <button
+              type="submit"
+              style="
+                background-color: #14b8a6;
+                color: white;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+                border-radius: 4px;
+                cursor: pointer;
+              "
+            >
+              Enviar
+            </button>
+            <input type="hidden" name="_redirect" value="https://integravisionstudio.dedyn.io/#gracias" />
+          </form>
+        </div>
+        <div
+          id="rave-news"
+          style="
+            flex: 1 1 350px;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          "
+        >
+          <ul id="rave-feed" style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.6; text-align: left"></ul>
+        </div>
+      </section>
+      <section
+        id="gracias"
+        style="
+          text-align: center;
+          background-color: #e0f7fa;
+          padding: 3rem 1rem;
+          margin-top: 2rem;
+          border-top: 3px solid #14b8a6;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        "
+      >
+        <h2 style="color: #14b8a6">✅ Gracias por contactarnos</h2>
+        <p>Hemos recibido tu mensaje y nos pondremos en contacto contigo pronto.</p>
+        <button
+          onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+          style="
+            background-color: #14b8a6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+          "
+        >
+          Volver arriba
+        </button>
+      </section>
+      <script>
+        fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.ravepubs.com/feed/')
+          .then((res) => res.json())
+          .then((data) => {
+            const container = document.getElementById('rave-feed');
+            if (!data.items) return;
+            data.items.slice(0, 5).forEach((item) => {
+              const li = document.createElement('li');
+              li.innerHTML = `<a href="${item.link}" target="_blank" style="color: #1e3a8a; text-decoration: none;">${item.title}</a><br><small style='color:#666;'>${new Date(
+                item.pubDate
+              ).toLocaleDateString()}</small>`;
+              container.appendChild(li);
+            });
+          })
+          .catch(() => {
+            document.getElementById('rave-feed').innerHTML = '<li>No se pudo cargar el feed.</li>';
+          });
+      </script>
+    </main>
   </div>
-  <main>
-    <section>
-      <h2 style="text-align:center; color:#1e3a8a; font-size:2rem; margin-top:2rem;">Galería de Proyectos</h2>
-      <div class="gallery-grid" id="gallery">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg" alt="Proyecto 1" onclick="openLightbox(0)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg" alt="Proyecto 2" onclick="openLightbox(1)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg" alt="Proyecto 3" onclick="openLightbox(2)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg" alt="Proyecto 4" onclick="openLightbox(3)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg" alt="Proyecto 5" onclick="openLightbox(4)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg" alt="Proyecto 6" onclick="openLightbox(5)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-12-10%2012.56.50.jpg" alt="Proyecto 7" onclick="openLightbox(6)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2014-09-30_02_47_14.gif" alt="Proyecto 8" onclick="openLightbox(7)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20160829_122833_HDR.jpg" alt="Proyecto 9" onclick="openLightbox(8)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20190307_082923_HDR.jpg" alt="Proyecto 10" onclick="openLightbox(9)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/4.png" alt="Proyecto 11" onclick="openLightbox(10)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6D5DFE3FEA648B4F1C6E88709F1277A3_7C0.jpeg" alt="Proyecto 12" onclick="openLightbox(11)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6b46cb2d-f6a3-422b-b964-50ae060f882a.jpg" alt="Proyecto 13" onclick="openLightbox(12)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/7340b7fc-1c47-4ec1-b24e-3ef4d5868f54.jpg" alt="Proyecto 14" onclick="openLightbox(13)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/9d580304-14e2-467e-8400-b8e4c4a72cf0.jpg" alt="Proyecto 15" onclick="openLightbox(14)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DIRECTORIO%20TVS.jpg" alt="Proyecto 16" onclick="openLightbox(15)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DMC-FZ70721.JPG" alt="Proyecto 17" onclick="openLightbox(16)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/Dise%C3%B1o%20de%20aula.png" alt="Proyecto 18" onclick="openLightbox(17)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0043.jpg" alt="Proyecto 19" onclick="openLightbox(18)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0097.jpg" alt="Proyecto 20" onclick="openLightbox(19)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0099.jpg" alt="Proyecto 21" onclick="openLightbox(20)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%202.png" alt="Proyecto 22" onclick="openLightbox(21)">
-        <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%20310717.png" alt="Proyecto 23" onclick="openLightbox(22)">
-      </div>
-    </section>
-    <div class="lightbox" id="lightbox">
-      <img id="lightbox-img" src="" alt="Imagen ampliada">
-      <div class="controls">
-        <i class="fas fa-arrow-left" onclick="navigateLightbox(-1)"></i>
-        <i class="fas fa-times" onclick="closeLightbox()"></i>
-        <i class="fas fa-arrow-right" onclick="navigateLightbox(1)"></i>
-      </div>
-    </div>
-    <script>
-      let currentImage = 0;
-      const images = document.querySelectorAll(".gallery-grid img");
-      function openLightbox(index) {
-        currentImage = index;
-        const lightbox = document.getElementById("lightbox");
-        const lightboxImg = document.getElementById("lightbox-img");
-        lightboxImg.src = images[currentImage].src;
-        lightbox.style.display = "flex";
-      }
-      function closeLightbox() {
-        document.getElementById("lightbox").style.display = "none";
-      }
-      function navigateLightbox(dir) {
-        currentImage = (currentImage + dir + images.length) % images.length;
-        document.getElementById("lightbox-img").src = images[currentImage].src;
-      }
-    </script>
-    <section id="rave-news" style="padding: 2rem;">
-      <h3 style="text-align:center;">
-        <img src="https://www.ravepubs.com/wp-content/themes/md-changes/img/rave-logo.png"
-             alt="RavePubs" style="height:24px; vertical-align:middle;">
-        Noticias rAVe [PUBS]
-      </h3>
-      <ul id="rave-feed" style="list-style:none; padding:0; max-width:600px; margin:auto;"></ul>
-    </section>
-    <script>
-      fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.ravepubs.com/feed/')
-        .then(res => res.json())
-        .then(data => {
-          const container = document.getElementById('rave-feed');
-          if (!data.items) return;
-          data.items.slice(0, 5).forEach(item => {
-            const li = document.createElement('li');
-            li.innerHTML = `<a href="${item.link}" target="_blank" style="color: #1e3a8a; text-decoration: none;">${item.title}</a><br><small style='color:#666;'>${new Date(item.pubDate).toLocaleDateString()}</small>`;
-            container.appendChild(li);
-          });
-        })
-        .catch(() => {
-          document.getElementById('rave-feed').innerHTML = '<li>No se pudo cargar el feed.</li>';
-        });
-    </script>
-    <section id="contacto" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; align-items: flex-start; padding: 2rem; background-color: #ffffff; border-top: 3px solid #14b8a6;">
-      <div style="flex: 1 1 500px;">
-        <h2>Contáctanos</h2>
-        <form action="https://formspree.io/f/mvgrwyzz" method="POST" style="box-sizing: border-box; max-width: 600px; margin: auto; padding: 1.5rem; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-          <label for="name"><i class="fas fa-user"></i> Nombre</label>
-          <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
-          <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
-          <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
-          <label for="message"><i class="fas fa-comment-dots"></i> Mensaje</label>
-          <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;"></textarea>
-          <button type="submit" style="background-color: #14b8a6; color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; border-radius: 4px; cursor: pointer;">Enviar</button>
-          <input type="hidden" name="_redirect" value="https://integravisionstudio.dedyn.io/#gracias">
-        </form>
-      </div>
-      <div id="rave-news" style="flex: 1 1 350px; padding: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-        <ul id="rave-feed" style="list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.6; text-align: left;"></ul>
-      </div>
-    </section>
-    <section id="gracias" style="text-align: center; background-color: #e0f7fa; padding: 3rem 1rem; margin-top: 2rem; border-top: 3px solid #14b8a6; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
-      <h2 style="color:#14b8a6;">✅ Gracias por contactarnos</h2>
-      <p>Hemos recibido tu mensaje y nos pondremos en contacto contigo pronto.</p>
-      <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" style="background-color: #14b8a6; color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; border-radius: 4px; cursor: pointer;">
-        Volver arriba
-      </button>
-    </section>
-    <script>
-      fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.ravepubs.com/feed/')
-        .then(res => res.json())
-        .then(data => {
-          const container = document.getElementById('rave-feed');
-          if (!data.items) return;
-          data.items.slice(0, 5).forEach(item => {
-            const li = document.createElement('li');
-            li.innerHTML = `<a href="${item.link}" target="_blank" style="color: #1e3a8a; text-decoration: none;">${item.title}</a><br><small style='color:#666;'>${new Date(item.pubDate).toLocaleDateString()}</small>`;
-            container.appendChild(li);
-          });
-        })
-        .catch(() => {
-          document.getElementById('rave-feed').innerHTML = '<li>No se pudo cargar el feed.</li>';
-        });
-    </script>
-  </main>
-  <!-- Pantalla de carga JS -->
+
   <script>
-    document.body.style.overflow = "hidden";
-    let loaderBar = null, loaderBg = null;
+    // Loader: barra de progreso y ocultar loader tras 3 segundos
+    document.body.style.overflow = 'hidden';
+    let loaderBar = null,
+      loaderBg = null;
     let progress = 0;
     let duration = 3000;
     let interval = 30;
@@ -330,33 +588,35 @@
       let intv = setInterval(() => {
         progress += step;
         if (progress > 100) progress = 100;
-        loaderBar.style.width = progress + "%";
+        loaderBar.style.width = progress + '%';
         if (progress >= 100) {
           clearInterval(intv);
-          loaderBg.style.opacity = "0";
+          loaderBg.style.opacity = '0';
           setTimeout(() => {
-            loaderBg.style.display = "none";
-            document.body.style.overflow = "";
+            loaderBg.style.display = 'none';
+            document.body.style.overflow = '';
           }, 500);
         }
       }, interval);
     }
     // --- Animación de elementos flotantes en loader ---
     const galleryImgs = [
-      "https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg",
-      "https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg",
-      "https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg",
-      "https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg",
-      "https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg",
-      "https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg"
+      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg',
+      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg',
+      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg',
+      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg',
+      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg',
+      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg',
     ];
     const floatingSections = [
-      "<b>Contáctanos</b>",
-      "Educación a través de soluciones audiovisuales integradas.",
-      "Galería de Proyectos",
-      "Noticias rAVe [PUBS]"
+      '<b>Contáctanos</b>',
+      'Educación a través de soluciones audiovisuales integradas.',
+      'Galería de Proyectos',
+      'Noticias rAVe [PUBS]',
     ];
-    function random(min, max) { return Math.random() * (max - min) + min; }
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
     function createFloatingElements() {
       const area = document.getElementById('loader-floating');
       const width = window.innerWidth;
@@ -365,8 +625,8 @@
         let img = document.createElement('img');
         img.src = src;
         img.className = 'floating-img';
-        img.style.left = random(0, width - 120) + "px";
-        img.style.top = random(0, height - 80) + "px";
+        img.style.left = random(0, width - 120) + 'px';
+        img.style.top = random(0, height - 80) + 'px';
         img.dataset.dx = random(1, 2) * (Math.random() > 0.5 ? 1 : -1);
         img.dataset.dy = random(0.7, 1.4) * (Math.random() > 0.5 ? 1 : -1);
         area.appendChild(img);
@@ -375,8 +635,8 @@
         let div = document.createElement('div');
         div.className = 'floating-section';
         div.innerHTML = html;
-        div.style.left = random(0, width - 260) + "px";
-        div.style.top = random(0, height - 80) + "px";
+        div.style.left = random(0, width - 260) + 'px';
+        div.style.top = random(0, height - 80) + 'px';
         div.dataset.dx = random(0.7, 1.2) * (Math.random() > 0.5 ? 1 : -1);
         div.dataset.dy = random(0.7, 1.2) * (Math.random() > 0.5 ? 1 : -1);
         area.appendChild(div);
@@ -404,8 +664,8 @@
           el.dataset.dy = -dy;
           y = Math.max(0, Math.min(y, height - h));
         }
-        el.style.left = x + "px";
-        el.style.top = y + "px";
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
       }
       requestAnimationFrame(animateFloating);
     }
