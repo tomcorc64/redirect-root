@@ -553,10 +553,46 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       animateLoader();
-      // Attach lightbox event listeners
       images.forEach((img, i) => {
         img.addEventListener('click', () => openLightbox(i));
       });
+
+      // Carga feed rAVe corregido
+      const container = document.getElementById('rave-feed');
+      const rssUrl = 'https://www.ravepubs.com/feed/';
+      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+
+      fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) throw new Error('Error en la respuesta de la API');
+          return response.json();
+        })
+        .then(data => {
+          if (!data.items || !Array.isArray(data.items)) {
+            container.innerHTML = '<li>No se encontraron noticias.</li>';
+            return;
+          }
+          container.innerHTML = '';
+          data.items.slice(0, 5).forEach(item => {
+            const li = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = item.link;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = item.title;
+            li.appendChild(link);
+            const date = document.createElement('small');
+            date.style.color = '#666';
+            date.style.display = 'block';
+            date.textContent = new Date(item.pubDate).toLocaleDateString();
+            li.appendChild(date);
+            container.appendChild(li);
+          });
+        })
+        .catch(error => {
+          container.innerHTML = '<li>No se pudo cargar el feed de noticias.</li>';
+          console.error('Error al cargar noticias rAVe:', error);
+        });
     });
   </script>
 </body>
