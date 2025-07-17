@@ -1,599 +1,1017 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Integravision Studio</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
-  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    /* Smooth scrolling */
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 80px;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', 'Arial', sans-serif;
-      background: #f3f6fa;
-      color: #234;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
-    .main-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      background: rgba(255,255,255,0.95);
-      box-sizing: border-box;
-      position: relative;
-      z-index: 2;
-      border-radius: 18px;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.07);
-      padding-bottom: 3rem;
-    }
-    /* Background mosaic */
-    #gallery-bg-mosaic {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-      opacity: 0.15;
-      background-color: #e6eef7;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, 220px);
-      grid-template-rows: repeat(auto-fill, 140px);
-    }
-    .mosaic-img {
-      width: 220px;
-      height: 140px;
-      object-fit: cover;
-      opacity: 0.6;
-      filter: blur(1px) grayscale(0.2);
-      border-radius: 12px;
-      will-change: transform;
-      animation: mosaicMove 60s ease-in-out infinite alternate;
-    }
-    @keyframes mosaicMove {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(15px, 15px) scale(1.05); }
-    }
-    /* Loader */
-    #loader-bg {
-      position: fixed;
-      z-index: 99999;
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100vw; height: 100vh;
-      background: #f3f6fa;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.5s;
-      overflow: hidden;
-    }
-    #loader-logo-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 2rem;
-      z-index: 2;
-    }
-    #loader-logo {
-      width: 270px;
-      height: 270px;
-      border-radius: 50%;
-      border: 12px solid #b0b0b0;
-      object-fit: cover;
-      box-sizing: border-box;
-      animation: pulse 1.2s infinite;
-      background: #fff;
-      z-index: 2;
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(20,184,166,0.4);}
-      70% { box-shadow: 0 0 0 37.5px rgba(20,184,166,0);}
-      100% { box-shadow: 0 0 0 0 rgba(20,184,166,0);}
-    }
-    #loader-bar-bg {
-      width: 320px;
-      height: 14px;
-      background: #e0e0e0;
-      border-radius: 7px;
-      overflow: hidden;
-      margin: 0 auto;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      z-index: 2;
-    }
-    #loader-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg,#14b8a6 60%,#1e3a8a 100%);
-      border-radius: 7px 0 0 7px;
-      transition: width 0.2s;
-    }
-    /* Header */
-    header {
-      background: linear-gradient(90deg, #1e3a8a 80%, #14b8a6 100%);
-      color: #fff;
-      padding-top: 1rem;
-      padding-bottom: 3rem;
-      text-align: center;
-      position: relative;
-      border-radius: 18px;
-      margin-bottom: 3rem;
-      box-shadow: 0 4px 24px rgba(20, 184, 166, 0.15);
-      overflow: visible;
-    }
-    header h1 {
-      font-size: 2.8rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: 1.5px;
-      color: #fff;
-      text-shadow: 0 3px 10px rgba(30,58,138,0.15);
-    }
-    header p {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-      color: #d0f0f0;
-      text-shadow: 0 1px 6px rgba(20,184,166,0.15);
-    }
-    /* Logo */
-    .logo-redondo {
-      width: 292.5px;
-      height: 292.5px;
-      border-radius: 50%;
-      object-fit: cover;
-      position: absolute;
-      bottom: -146px;
-      left: 50px;
-      border: 5px solid #b0b0b0;
-      box-shadow: 0 6px 30px rgba(20,184,166,0.15);
-      background: white;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      z-index: 10;
-    }
-    .logo-redondo:hover {
-      transform: scale(1.08);
-      box-shadow: 0 12px 40px rgba(20,184,166,0.3);
-    }
-    /* Hero Button */
-    .hero-button {
-      background-color: #14b8a6;
-      color: white;
-      padding: 0.85rem 2rem;
-      border: none;
-      border-radius: 25px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      text-decoration: none;
-      font-weight: 600;
-      box-shadow: 0 6px 15px rgba(20,184,166,0.3);
-      transition: background 0.3s ease, transform 0.3s ease;
-      display: inline-block;
-      margin-top: 2rem;
-    }
-    .hero-button:hover {
-      background: #1e3a8a;
-      transform: scale(1.05);
-    }
-    /* Gallery Grid */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 15px;
-      padding: 1rem 2rem;
-      margin-bottom: 3rem;
-    }
-    .gallery-grid img {
-      width: 100%;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 4px 18px rgba(20,184,166,0.15);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .gallery-grid img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 8px 30px rgba(20,184,166,0.3);
-      z-index: 5;
-      position: relative;
-    }
-    /* Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 10000;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 90vh;
-      border-radius: 12px;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.7);
-    }
-    .lightbox .controls {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      color: white;
-      font-size: 2.5rem;
-      margin-top: 1.5rem;
-      user-select: none;
-    }
-    .lightbox .controls i {
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    .lightbox .controls i:hover {
-      color: #14b8a6;
-    }
-    /* Contact & News container */
-    #contact-news-container {
-      display: flex;
-      gap: 2rem;
-      padding: 2rem 3rem;
-      background-color: #f7fafc;
-      border-top: 4px solid #14b8a6;
-      border-radius: 18px;
-      box-shadow: 0 4px 24px rgba(20,184,166,0.1);
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 3rem;
-    }
-    #contact-news-container > div {
-      flex: 1 1 45%;
-      min-width: 320px;
-      box-sizing: border-box;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 4px 18px rgba(20,184,166,0.1);
-      padding: 2rem 2.5rem;
-      transition: box-shadow 0.3s ease;
-    }
-    #contact-news-container > div:hover {
-      box-shadow: 0 8px 30px rgba(20,184,166,0.2);
-    }
-    /* Gracias section */
-    #gracias {
-      text-align: center;
-      background: linear-gradient(90deg, #e0f7fa 80%, #b2f5ea 100%);
-      padding: 2rem 2rem;
-      margin: 0 auto 4rem auto;
-      border-top: 4px solid #14b8a6;
-      border-radius: 18px;
-      box-shadow: 0 4px 24px rgba(20,184,166,0.12);
-      max-width: 600px;
-      min-height: 180px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-    }
-    #gracias h2 {
-      color: #14b8a6;
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 8px rgba(20,184,166,0.1);
-    }
-    #gracias p {
-      color: #234;
-      font-size: 1.2rem;
-      margin-bottom: 1.8rem;
-      max-width: 90%;
-    }
-    #gracias button {
-      background-color: #14b8a6;
-      color: white;
-      border: none;
-      padding: 0.75rem 1.8rem;
-      font-size: 1.1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      box-shadow: 0 4px 18px rgba(20,184,166,0.15);
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-    #gracias button:hover {
-      background: #1e3a8a;
-      color: #fff;
-      transform: scale(1.08);
-    }
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 12px;
-      background: #e0e7ef;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #14b8a6;
-      border-radius: 10px;
-    }
-    /* Responsive */
-    @media (max-width: 700px) {
-      .main-container {
-        max-width: 95vw;
-        border-radius: 12px;
-        padding-bottom: 2rem;
-      }
-      header {
-        padding-bottom: 4rem;
-      }
-      .logo-redondo {
-        position: relative !important;
-        width: 180px !important;
-        height: 180px !important;
-        bottom: auto !important;
-        left: auto !important;
-        margin: 0 auto 1rem auto;
-        display: block;
-        box-shadow: 0 4px 20px rgba(20,184,166,0.15);
-      }
-      #contact-news-container {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 1rem 1.5rem;
-      }
-      #contact-news-container > div {
-        min-width: 0;
-        padding: 1.5rem 1rem;
-      }
-      #gracias {
-        max-width: 90vw;
-        padding: 1.5rem 1rem;
-        min-height: 160px;
-      }
-      #gracias h2 {
-        font-size: 1.8rem;
-      }
-      #gracias p {
-        font-size: 1rem;
-      }
-      #gracias button {
-        font-size: 1rem;
-        padding: 0.6rem 1.3rem;
-      }
-      .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 12px;
-        padding: 1rem 1rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Integravision Studio</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+
+        /* --- ESTILOS PARA EL BOTÓN DE TEMA OSCURO --- */
+
+        /* Posicionamiento del botón */
+        .header-content {
+            position: relative; /* Necesario para posicionar el botón dentro */
+        }
+
+        #theme-toggle {
+            position: absolute;
+            top: 50%;
+            right: 30px; /* Distancia desde la derecha */
+            transform: translateY(-50%); /* Centrado vertical perfecto */
+            background: none;
+            border: none;
+            color: var(--white-color);
+            font-size: 1.8rem; /* Tamaño del ícono */
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        #theme-toggle:hover {
+            transform: translateY(-50%) scale(1.15); /* Efecto al pasar el mouse */
+        }
+
+
+        /* --- DEFINICIÓN DEL TEMA OSCURO --- */
+
+        /* Cuando el body tenga la clase "dark-mode", estos colores se aplicarán */
+        body.dark-mode {
+            --primary-color: #e5e7eb;         /* Color de texto principal (gris claro) */
+            --secondary-color: #14b8a6;       /* Se mantiene el verde azulado para acentos */
+            --light-bg-color: #0f172a;        /* Fondo principal de la página (azul muy oscuro) */
+            --white-color: #1f2937;           /* Fondo de las tarjetas y secciones (azul oscuro) */
+            --gray-border: #4b5563;           /* Color de los bordes */
+            --dark-gray: #9ca3af;             /* Color de texto secundario */
+        }
+
+        body.dark-mode #page-gallery,
+        body.dark-mode #page-thanks {
+            background-color: rgba(31,41,55,0.92); /* Fuerte fondo oscuro y semitransparente */
+        }
+
+        /* Opcional: para asegurar contraste adecuado en los textos de títulos */
+        body.dark-mode .gallery-title,
+        body.dark-mode .thank-you-section h2 {
+            color: var(--primary-color); /* O un color específico claro, ejemplo: #e5e7eb */
+        }
+
+        /* Casos especiales que no se cambian automáticamente con las variables */
+        body.dark-mode header {
+            background-color: #1f2937; /* El header debe ser oscuro */
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .logo-redondo {
+            border-color: #4b5563; /* Borde del logo */
+            background-color: #374151;
+        }
+
+        body.dark-mode .thank-you-section p {
+            color: #d1d5db; /* Texto de párrafos en oscuro */
+        }
+
+        /* Cambia el color del ícono del tema cuando está en modo oscuro */
+        body.dark-mode #theme-toggle {
+            color: #facc15; /* Color sol (amarillo) */
+        }
+
+        :root {
+            --primary-color: #1e3a8a; /* Azul oscuro */
+            --secondary-color: #14b8a6; /* Verde azulado */
+            --light-bg-color: #f9fafb;
+            --white-color: #ffffff;
+            --gray-border: #b0b0b0;
+            --light-gray: #e0e0e0;
+            --dark-gray: #666;
+            --box-shadow-light: 0 2px 6px rgba(0,0,0,0.1);
+            --box-shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --box-shadow-strong: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* HTML y Body para Scroll Snapping */
+        html, body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--light-bg-color);
+            color: var(--primary-color);
+            height: 100%; /* Permite que el body ocupe el 100% de la ventana */
+            overflow: hidden; /* Oculta el scroll inicial antes del loader */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            scroll-snap-type: y mandatory; /* Habilita el scroll snapping vertical en el body */
+            overflow-y: scroll; /* Permite el scroll vertical en el body */
+        }
+
+        /* Pantalla de carga */
+        #loader-bg {
+            position: fixed;
+            z-index: 99999;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--light-bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s;
+            overflow: hidden;
+        }
+        #loader-floating {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .floating-img,
+        .floating-section-loader {
+            position: absolute;
+            opacity: 0.28;
+            border-radius: 18px;
+            user-select: none;
+            pointer-events: none;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            will-change: transform;
+            animation: floatBounce 3s linear infinite;
+        }
+        .floating-img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+        }
+        .floating-section-loader {
+            background: var(--white-color);
+            padding: 24px 32px;
+            font-size: 1.1rem;
+            min-width: 200px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid var(--gray-border);
+        }
+        @keyframes floatBounce {
+            0% {
+                filter: blur(0px);
+            }
+            50% {
+                filter: blur(2px);
+            }
+            100% {
+                filter: blur(0px);
+            }
+        }
+        #loader-logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            z-index: 2;
+        }
+        #loader-logo {
+            width: 270px;
+            height: 270px;
+            border-radius: 50%;
+            border: 12px solid var(--gray-border);
+            object-fit: cover;
+            box-sizing: border-box;
+            animation: pulse 1.2s infinite;
+            background: var(--white-color);
+            z-index: 2;
+        }
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 37.5px rgba(20, 184, 166, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(20, 184, 166, 0);
+            }
+        }
+        #loader-bar-bg {
+            width: 320px;
+            height: 14px;
+            background: var(--light-gray);
+            border-radius: 7px;
+            overflow: hidden;
+            margin: 0 auto;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            z-index: 2;
+        }
+        #loader-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--secondary-color) 60%, var(--primary-color) 100%);
+            border-radius: 7px 0 0 7px;
+            transition: width 0.2s;
+        }
+
+        /* Header fijo */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding-top: 0rem;
+            padding-bottom: 1rem; /* Ajuste el padding para los botones */
+            text-align: center;
+            position: fixed; /* Fijo en la parte superior */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Asegura que esté por encima de todo el contenido y el fondo */
+            border-radius: 0 0 12px 12px;
+            box-shadow: var(--box-shadow-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header-content {
+            text-align: center;
+            padding-top: 1rem;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding-bottom: 0.5rem; /* Espacio antes de los botones */
+        }
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            margin-top: 0; /* Eliminar margen superior predeterminado */
+        }
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem; /* Menos margen para acercar los botones */
+        }
+
+        /* Logo aumentado un 30% con borde plomo y efecto hover */
+        .logo-redondo {
+            width: 292.5px; /* 225 * 1.3 */
+            height: 292.5px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            bottom: -146.25px; /* Mitad del tamaño para que quede justo al centro del borde inferior */
+            left: 50px; /* Alineado a la izquierda */
+            border: 5px solid var(--gray-border);
+            transition: transform 0.3s ease;
+            box-sizing: border-box;
+            background-color: var(--white-color);
+            z-index: 1010; /* Encima del header */
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+        .logo-redondo:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+        /* Botones de navegación */
+        .nav-buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+            padding: 0.5rem 0; /* Un poco de padding para los botones */
+            box-sizing: border-box;
+        }
+        .hero-button {
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            white-space: nowrap; /* Evita que los botones se rompan en varias líneas */
+        }
+        .hero-button:hover {
+            background-color: #108e7e;
+        }
+
+        /* Estilos para cada "página" (sección) */
+        .page-section {
+            min-height: 100vh; /* Cada sección ocupa al menos el 100% de la altura de la ventana */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centra el contenido verticalmente */
+            align-items: center;
+            padding: 2rem;
+            box-sizing: border-box;
+            scroll-snap-align: start; /* Alinea el inicio de la sección con el borde del contenedor de scroll */
+            position: relative;
+            z-index: 2; /* Asegura que el contenido de la página esté sobre el fondo flotante */
+            background-color: rgba(255,255,255,0.85); /* Fondo semi-transparente para la página para que el contenido sea legible */
+            padding-top: 350px; /* Espacio para el header fijo y el logo, ajustado */
+            overflow-y: auto; /* Permite el scroll dentro de la sección si el contenido es demasiado grande */
+        }
+
+        /* Galería */
+        .gallery-title {
+            text-align:center;
+            color:var(--primary-color);
+            font-size:2.5rem;
+            margin-top:2rem;
+            margin-bottom: 2rem;
+            z-index: 3; /* Para que el título esté sobre el fondo semi-transparente de la sección */
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Imágenes un poco más grandes */
+            gap: 15px; /* Más espacio entre imágenes */
+            padding: 1.5rem;
+            max-width: 950px; /* Para que la galería no ocupe todo el ancho si main-container es más grande */
+            width: 100%;
+            box-sizing: border-box;
+            background-color: rgba(255,255,255,0.8); /* Fondo semi-transparente para la galería */
+            border-radius: 12px;
+            padding-bottom: 3rem;
+            box-shadow: var(--box-shadow-medium);
+            z-index: 3;
+        }
+        .gallery-grid img {
+            width: 100%;
+            height: 180px; /* Altura fija para uniformidad */
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Sombra más pronunciada */
+        }
+        .gallery-grid img:hover {
+            transform: scale(1.03); /* Menor aumento para no ser tan brusco */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+
+        /* Lightbox (ampliador de imágenes) */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 10000;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        .lightbox .controls {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: white;
+            font-size: 2rem;
+            margin-top: 1rem;
+        }
+        .lightbox .controls i {
+            cursor: pointer;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* Contenedor para contacto y noticias lado a lado */
+        #contact-news-container {
+            display: flex;
+            gap: 2rem;
+            padding: 2.5rem; /* Mayor padding */
+            background-color: var(--white-color);
+            border-top: 3px solid var(--secondary-color);
+            border-radius: 8px;
+            box-shadow: var(--box-shadow-strong); /* Sombra más fuerte */
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 900px; /* Más ancho */
+            box-sizing: border-box;
+            margin-top: 2rem;
+        }
+        #contact-news-container > div {
+            flex: 1 1 48%; /* Ajuste para un poco más de espacio */
+            min-width: 320px;
+            box-sizing: border-box;
+        }
+        #contact-news-container h2, #contact-news-container h3 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Estilos del Formulario de Contacto */
+        .contact-form {
+            box-sizing: border-box;
+            padding: 1.5rem;
+            background-color: var(--white-color);
+            border-radius: 8px;
+            box-shadow: var(--box-shadow-light);
+            border: 1px solid var(--light-gray);
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--gray-border);
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+        .contact-form button[type="submit"] {
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .contact-form button[type="submit"]:hover {
+            background-color: #108e7e;
+            transform: translateY(-2px);
+        }
+
+        /* Estilos de la sección de noticias */
+        #rave-news {
+            padding: 1.5rem;
+            background: var(--white-color);
+            border-radius: 8px;
+            box-shadow: var(--box-shadow-light);
+            border: 1px solid var(--light-gray);
+        }
+        #rave-news ul {
+            list-style:none;
+            padding:0;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+        #rave-news li a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        #rave-news li a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+        #rave-news li small {
+            color:var(--dark-gray);
+            display: block;
+            margin-top: 0.2rem;
+            font-size: 0.8rem;
+        }
+
+        /* Sección de Agradecimiento */
+        .thank-you-section {
+            text-align: center;
+            background-color: rgba(240, 240, 240, 0.9); /* Gris muy suave y semi-transparente */
+            border-top: 3px solid var(--secondary-color);
+            border-radius: 8px;
+            box-shadow: var(--box-shadow-strong);
+            width: 100%;
+            max-width: 900px; /* Aumenta el ancho */
+            box-sizing: border-box;
+            margin-top: 2rem;
+        }
+        .thank-you-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1.8rem;
+            font-size: 2.5rem;
+        }
+        .thank-you-section p {
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-size: 1.15rem;
+            color: #333;
+            text-align: center;
+            text-justify: inter-word;
+        }
+        .thank-you-section img.graphic { /* Estilo para el nuevo gráfico */
+            max-width: 250px;
+            height: auto;
+            margin-bottom: 2.5rem;
+            opacity: 0.9; /* Pequeña transparencia para integrarse con el fondo */
+            border-radius: 8px;
+            box-shadow: var(--box-shadow-medium);
+        }
+        .thank-you-section button {
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+            border: none;
+            padding: 0.9rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .thank-you-section button:hover {
+            background-color: #108e7e;
+            transform: translateY(-2px);
+        }
+
+        /* Fondo dinámico de imágenes */
+        #background-floating-images {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* Permite clicks a través de él */
+            overflow: hidden;
+            z-index: 0; /* Asegura que esté en el fondo absoluto */
+        }
+        .bg-floating-img {
+            position: absolute;
+            opacity: 0.05; /* Muy transparente */
+            border-radius: 8px;
+            user-select: none;
+            object-fit: cover;
+            will-change: transform, opacity;
+            animation: bgFloatFade 15s infinite ease-in-out alternate;
+        }
+        @keyframes bgFloatFade {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.05; }
+            25% { transform: translate(random(-20, 20)px, random(-20, 20)px) scale(random(1, 1.02)); opacity: 0.07; }
+            50% { transform: translate(random(-20, 20)px, random(-20, 20)px) scale(random(1, 1.04)); opacity: 0.09; }
+            75% { transform: translate(random(-20, 20)px, random(-20, 20)px) scale(random(1, 1.02)); opacity: 0.07; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.05; }
+        }
+
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 768px) {
+            header {
+                padding-bottom: 0.5rem;
+                border-radius: 0; /* Sin bordes redondeados en móviles */
+                position: static; /* No fijo en móviles, se desplaza con el contenido */
+                height: auto;
+            }
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+            .header-content p {
+                font-size: 0.9rem;
+            }
+            .logo-redondo {
+                position: static; /* Se comporta como un elemento normal */
+                width: 150px;
+                height: 150px;
+                margin: 0.5rem auto 1rem auto; /* Centrar y margen inferior */
+                display: block;
+                transform: none; /* Eliminar cualquier transformación */
+                left: auto;
+                bottom: auto;
+                filter: none; /* Sin sombra en móviles */
+            }
+            .nav-buttons-container {
+                flex-direction: column; /* Botones apilados */
+                gap: 0.5rem;
+                padding: 0 1rem;
+            }
+            .hero-button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .page-section {
+                padding-top: 1rem; /* Menor padding para el header fijo en móviles, que ahora es estático */
+                min-height: auto; /* Permite que las secciones se adapten a su contenido */
+                scroll-snap-align: none; /* Deshabilita scroll snapping en móviles */
+                overflow-y: visible; /* Permite scroll normal dentro de la sección */
+                background-color: var(--light-bg-color); /* Fondo completo para mejor legibilidad */
+            }
+            body {
+                scroll-snap-type: none; /* Deshabilita scroll snapping en el body en móviles */
+                overflow-y: scroll; /* Scroll normal */
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 8px;
+                padding: 0.8rem;
+                max-width: 100%;
+            }
+            .gallery-grid img {
+                height: 120px;
+            }
+            #contact-news-container {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem;
+                max-width: 100%;
+            }
+            #contact-news-container > div {
+                min-width: unset;
+            }
+            .thank-you-section {
+                padding: 2rem 1rem;
+                max-width: 100%;
+            }
+            .thank-you-section h2 {
+                font-size: 1.8rem;
+            }
+            .thank-you-section p {
+                font-size: 1rem;
+            }
+            .thank-you-section img.graphic {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Background mosaic -->
-  <div id="gallery-bg-mosaic"></div>
-
-  <!-- Loader -->
-  <div id="loader-bg">
-    <div id="loader-logo-container">
-      <img id="loader-logo" src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png" alt="Logo Integravision" />
+    <div id="loader-bg">
+        <div id="loader-floating"></div>
+        <div id="loader-logo-container">
+            <img id="loader-logo" src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png" alt="Logo Integravision" />
+        </div>
+        <div id="loader-bar-bg">
+            <div id="loader-bar"></div>
+        </div>
     </div>
-    <div id="loader-bar-bg">
-      <div id="loader-bar"></div>
-    </div>
-  </div>
 
-  <div class="main-container">
+    <div id="background-floating-images"></div>
+
     <header>
-      <div style="text-align: right; padding-top: position: relative; z-index: 1;">
-        <h1>IntegraVision Studio</h1>
-        <p>Educación a través de soluciones audiovisuales integradas.</p>
-      </div>
-      <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png" alt="Logo Integravision" class="logo-redondo" />
+        <div class="header-content">
+            <h1>IntegraVision Studio</h1>
+            <button id="theme-toggle" title="Cambiar tema">
+            <i class="fas fa-moon"></i>
+            </button>
+            <p>Transformando la educación a través de soluciones audiovisuales integradas.</p>
+        </div>
+        <img
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png"
+            alt="Logo Integravision"
+            class="logo-redondo"
+        />
+        <div class="nav-buttons-container">
+            <a class="hero-button" href="#page-gallery">Nuestra Galería</a>
+            <a class="hero-button" href="#page-contact-news">Contáctanos y Noticias</a>
+            <a class="hero-button" href="#page-thanks">Agradecimiento</a>
+        </div>
     </header>
 
-    <div style="text-align: center; margin-top: 6rem;">
-      <a class="hero-button" href="#contacto">Contáctanos</a>
-    </div>
-
-    <main>
-      <section>
-        <h2 style="text-align:center; color:#1e3a8a; font-size:2rem; margin-top:2rem;">Galería de Proyectos</h2>
+    <section id="page-gallery" class="page-section">
+        <h2 class="gallery-title">Galería de Proyectos</h2>
         <div class="gallery-grid" id="gallery">
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg" alt="Proyecto 1" onclick="openLightbox(0)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg" alt="Proyecto 2" onclick="openLightbox(1)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg" alt="Proyecto 3" onclick="openLightbox(2)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg" alt="Proyecto 4" onclick="openLightbox(3)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg" alt="Proyecto 5" onclick="openLightbox(4)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg" alt="Proyecto 6" onclick="openLightbox(5)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-12-10%2012.56.50.jpg" alt="Proyecto 7" onclick="openLightbox(6)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2014-09-30_02_47_14.gif" alt="Proyecto 8" onclick="openLightbox(7)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20160829_122833_HDR.jpg" alt="Proyecto 9" onclick="openLightbox(8)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20190307_082923_HDR.jpg" alt="Proyecto 10" onclick="openLightbox(9)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/4.png" alt="Proyecto 11" onclick="openLightbox(10)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6D5DFE3FEA648B4F1C6E88709F1277A3_7C0.jpeg" alt="Proyecto 12" onclick="openLightbox(11)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6b46cb2d-f6a3-422b-b964-50ae060f882a.jpg" alt="Proyecto 13" onclick="openLightbox(12)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/7340b7fc-1c47-4ec1-b24e-3ef4d5868f54.jpg" alt="Proyecto 14" onclick="openLightbox(13)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/9d580304-14e2-467e-8400-b8e4c4a72cf0.jpg" alt="Proyecto 15" onclick="openLightbox(14)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DIRECTORIO%20TVS.jpg" alt="Proyecto 16" onclick="openLightbox(15)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DMC-FZ70721.JPG" alt="Proyecto 17" onclick="openLightbox(16)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/Dise%C3%B1o%20de%20aula.png" alt="Proyecto 18" onclick="openLightbox(17)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0043.jpg" alt="Proyecto 19" onclick="openLightbox(18)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0097.jpg" alt="Proyecto 20" onclick="openLightbox(19)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0099.jpg" alt="Proyecto 21" onclick="openLightbox(20)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%202.png" alt="Proyecto 22" onclick="openLightbox(21)" />
-          <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%20310717.png" alt="Proyecto 23" onclick="openLightbox(22)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg" alt="Proyecto 1" onclick="openLightbox(0)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg" alt="Proyecto 2" onclick="openLightbox(1)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg" alt="Proyecto 3" onclick="openLightbox(2)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg" alt="Proyecto 4" onclick="openLightbox(3)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg" alt="Proyecto 5" onclick="openLightbox(4)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg" alt="Proyecto 6" onclick="openLightbox(5)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-12-10%2012.56.50.jpg" alt="Proyecto 7" onclick="openLightbox(6)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2014-09-30_02_47_14.gif" alt="Proyecto 8" onclick="openLightbox(7)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20160829_122833_HDR.jpg" alt="Proyecto 9" onclick="openLightbox(8)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20190307_082923_HDR.jpg" alt="Proyecto 10" onclick="openLightbox(9)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/4.png" alt="Proyecto 11" onclick="openLightbox(10)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6D5DFE3FEA648B4F1C6E88709F1277A3_7C0.jpeg" alt="Proyecto 12" onclick="openLightbox(11)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6b46cb2d-f6a3-422b-b964-50ae060f882a.jpg" alt="Proyecto 13" onclick="openLightbox(12)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/7340b7fc-1c47-4ec1-b24e-3ef4d5868f54.jpg" alt="Proyecto 14" onclick="openLightbox(13)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/9d580304-14e2-467e-8400-b8e4c4a72cf0.jpg" alt="Proyecto 15" onclick="openLightbox(14)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DIRECTORIO%20TVS.jpg" alt="Proyecto 16" onclick="openLightbox(15)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DMC-FZ70721.JPG" alt="Proyecto 17" onclick="openLightbox(16)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/Dise%C3%B1o%20de%20aula.png" alt="Proyecto 18" onclick="openLightbox(17)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0043.jpg" alt="Proyecto 19" onclick="openLightbox(18)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0097.jpg" alt="Proyecto 20" onclick="openLightbox(19)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0099.jpg" alt="Proyecto 21" onclick="openLightbox(20)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%202.png" alt="Proyecto 22" onclick="openLightbox(21)" />
+            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%20310717.png" alt="Proyecto 23" onclick="openLightbox(22)" />
         </div>
-      </section>
-
-      <div class="lightbox" id="lightbox">
-        <img id="lightbox-img" src="" alt="Imagen ampliada" />
-        <div class="controls">
-          <i class="fas fa-arrow-left" onclick="navigateLightbox(-1)"></i>
-          <i class="fas fa-times" onclick="closeLightbox()"></i>
-          <i class="fas fa-arrow-right" onclick="navigateLightbox(1)"></i>
+        <div class="lightbox" id="lightbox">
+            <img id="lightbox-img" src="" alt="Imagen ampliada" />
+            <div class="controls">
+                <i class="fas fa-arrow-left" onclick="navigateLightbox(-1)" aria-label="Imagen anterior"></i>
+                <i class="fas fa-times" onclick="closeLightbox()" aria-label="Cerrar"></i>
+                <i class="fas fa-arrow-right" onclick="navigateLightbox(1)" aria-label="Imagen siguiente"></i>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <section id="rave-news-contact" style="margin-top: 2rem;">
+    <section id="page-contact-news" class="page-section">
         <div id="contact-news-container">
-          <div id="contacto">
-            <h2>Contáctanos</h2>
-            <form action="https://formspree.io/f/mvgrwyzz" method="POST" style="box-sizing: border-box; max-width: 600px; margin: auto; padding: 1.5rem; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
-              <label for="name"><i class="fas fa-user"></i> Nombre</label>
-              <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;" />
-              <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
-              <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;" />
-              <label for="message"><i class="fas fa-comment-dots"></i> Mensaje</label>
-              <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;"></textarea>
-              <button type="submit" style="background-color: #14b8a6; color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; border-radius: 4px; cursor: pointer;">Enviar</button>
-              <input type="hidden" name="_redirect" value="https://integravisionstudio.dedyn.io/#gracias" />
-            </form>
-          </div>
-          <div id="rave-news" style="padding: 1rem;">
-            <h3 style="text-align:center;">
-              <img src="https://www.ravepubs.com/wp-content/themes/md-changes/img/rave-logo.png" alt="RavePubs" style="height: 24px; vertical-align: middle" />
-              Noticias rAVe [PUBS]
-            </h3>
-            <ul id="rave-feed" style="list-style:none; padding:0; font-size: 0.9rem; line-height: 1.6; text-align: left;"></ul>
-          </div>
+            <div id="contacto">
+                <h2>Contáctanos</h2>
+                <form action="https://formspree.io/f/mvgrwyzz" method="POST" class="contact-form">
+                    <label for="name"><i class="fas fa-user"></i> Nombre</label>
+                    <input type="text" id="name" name="name" required />
+                    <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
+                    <input type="email" id="email" name="email" required />
+                    <label for="message"><i class="fas fa-comment-dots"></i> Mensaje</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                    <button type="submit">Enviar</button>
+                    <input type="hidden" name="_redirect" value="https://integravisionstudio.dedyn.io/#page-thanks" />
+                </form>
+            </div>
+            <div id="rave-news">
+                <h3>
+                    <img src="https://www.ravepubs.com/wp-content/themes/md-changes/img/rave-logo.png" alt="RavePubs" style="height: 24px; vertical-align: middle" />
+                    Noticias rAVe&thinsp;[PUBS]
+                </h3>
+                <ul id="rave-feed"></ul>
+            </div>
         </div>
-      </section>
+    </section>
 
-      <section id="gracias">
-        <h2>✅ Gracias por contactarnos</h2>
-        <p>Hemos recibido tu mensaje y nos pondremos en contacto contigo pronto.</p>
-        <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">Volver arriba</button>
-      </section>
-    </main>
-  </div>
+    <section id="page-thanks" class="page-section thank-you-section">
+        <h2>✅ ¡Gracias por contactarnos!</h2>
+        <p>
+            Apreciamos sinceramente tu interés en IntegraVision Studio. Tu mensaje ha sido recibido con éxito y nuestro equipo está revisándolo cuidadosamente.
+            Nos esforzamos por ofrecer soluciones audiovisuales integradas de la más alta calidad para transformar la educación y otros espacios, impulsando la innovación y la eficiencia en cada proyecto. Nuestra misión es crear ambientes de aprendizaje dinámicos y colaborativos mediante tecnologías de vanguardia.
+        </p>
+        <p>
+            En breve, uno de nuestros especialistas se pondrá en contacto contigo para entender mejor tus necesidades y explorar cómo podemos ayudarte a alcanzar tus objetivos. Nos comprometemos a proporcionarte una atención personalizada, un asesoramiento experto y soluciones a medida que no solo satisfagan, sino que superen tus expectativas. La integración audiovisual es nuestra pasión y la educación, nuestra vocación.
+        </p>
+        <p>
+            Mientras tanto, te invitamos a explorar más sobre nuestros proyectos recientes en la galería para que conozcas la diversidad y calidad de nuestras implementaciones en diversas instituciones educativas y corporativas. También puedes revisar las últimas noticias del sector en rAVe [PUBS] para mantenerte al día con las tendencias e innovaciones en tecnología audiovisual que aplicamos en nuestros servicios.
+        </p>
+        <p>
+            ¡Gracias por tu paciencia y por elegir a IntegraVision Studio como tu aliado estratégico en el camino hacia la excelencia audiovisual y educativa! Esperamos construir una relación duradera y exitosa contigo, contribuyendo al avance tecnológico de tu institución.
+        </p>
+        <button onclick="window.location.href = '#page-gallery'">
+            Volver a la Galería
+        </button>
+    </section>
 
-  <script>
-    // Fondo mosaico
-    const mosaicImgs = [
-      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg',
-      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg',
-      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg',
-      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg',
-      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg',
-      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg',
-      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-12-10%2012.56.50.jpg',
-      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2014-09-30_02_47_14.gif',
-      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20160829_122833_HDR.jpg',
-      'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20190307_082923_HDR.jpg',
-      'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80',
-      'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80'
-    ];
+    <script>
+        // Todas las URLs de las imágenes de la galería para el fondo dinámico y loader
+        const allGalleryImageUrls = [
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-12-10%2012.56.50.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2014-09-30_02_47_14.gif',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20160829_122833_HDR.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20190307_082923_HDR.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/4.png',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6D5DFE3FEA648B4F1C6E88709F1277A3_7C0.jpeg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6b46cb2d-f6a3-422b-b964-50ae060f882a.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/7340b7fc-1c47-4ec1-b24e-3ef4d5868f54.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/9d580304-14e2-467e-8400-b8e4c4a72cf0.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DIRECTORIO%20TVS.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DMC-FZ70721.JPG',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/Dise%C3%B1o%20de%20aula.png',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0043.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0097.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0099.jpg',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%202.png',
+            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%20310717.png'
+        ];
 
-    function fillMosaic() {
-      const bg = document.getElementById('gallery-bg-mosaic');
-      bg.innerHTML = '';
-      const cols = Math.ceil(window.innerWidth / 220) + 1;
-      const rows = Math.ceil(window.innerHeight / 140) + 1;
-      let idx = 0;
-      for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
-          const img = document.createElement('img');
-          img.src = mosaicImgs[idx % mosaicImgs.length];
-          img.className = 'mosaic-img';
-          img.style.gridColumn = (x + 1);
-          img.style.gridRow = (y + 1);
-          img.style.animationDelay = ((x + y) * 2 + (idx % 3)) + 's';
-          bg.appendChild(img);
-          idx++;
+        // Loader: barra de progreso y ocultar loader tras 3 segundos
+        let loaderBar = null,
+            loaderBg = null;
+        let progress = 0;
+        let duration = 3000;
+        let interval = 30;
+        let step = 100 / (duration / interval);
+
+        function animateLoader() {
+            loaderBar = document.getElementById('loader-bar');
+            loaderBg = document.getElementById('loader-bg');
+            let intv = setInterval(() => {
+                progress += step;
+                if (progress > 100) progress = 100;
+                loaderBar.style.width = progress + '%';
+                if (progress >= 100) {
+                    clearInterval(intv);
+                    loaderBg.style.opacity = '0';
+                    setTimeout(() => {
+                        loaderBg.style.display = 'none';
+                        // Habilitar scroll en el body una vez que el loader desaparece
+                        document.body.style.overflowY = 'scroll';
+                    }, 500);
+                }
+            }, interval);
         }
-      }
-    }
-    fillMosaic();
-    window.addEventListener('resize', fillMosaic);
 
-    // Loader animation
-    document.body.style.overflow = 'hidden';
-    let loaderBar = null, loaderBg = null;
-    let progress = 0;
-    const duration = 3000;
-    const intervalTime = 30;
-    const step = 100 / (duration / intervalTime);
-
-    function animateLoader() {
-      loaderBar = document.getElementById('loader-bar');
-      loaderBg = document.getElementById('loader-bg');
-      const interval = setInterval(() => {
-        progress += step;
-        if (progress > 100) progress = 100;
-        loaderBar.style.width = progress + '%';
-        if (progress >= 100) {
-          clearInterval(interval);
-          loaderBg.style.opacity = '0';
-          setTimeout(() => {
-            loaderBg.style.display = 'none';
-            document.body.style.overflow = '';
-          }, 500);
+        // Función auxiliar para números aleatorios
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
         }
-      }, intervalTime);
-    }
 
-    // Lightbox functions
-    let currentImage = 0;
-    const images = document.querySelectorAll('.gallery-grid img');
-    function openLightbox(index) {
-      currentImage = index;
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      lightboxImg.src = images[currentImage].src;
-      lightbox.style.display = 'flex';
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').style.display = 'none';
-    }
-    function navigateLightbox(dir) {
-      currentImage = (currentImage + dir + images.length) % images.length;
-      document.getElementById('lightbox-img').src = images[currentImage].src;
-    }
+        // --- Animación de elementos flotantes en loader ---
+        const floatingLoaderImgs = allGalleryImageUrls.slice(0, 6); // Usar algunas imágenes de la galería
+        const floatingLoaderSections = [
+            '<b>Contáctanos</b>',
+            'Educación a través de soluciones audiovisuales integradas.',
+            'Galería de Proyectos',
+            'Noticias rAVe [PUBS]',
+        ];
+        function createFloatingLoaderElements() {
+            const area = document.getElementById('loader-floating');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            floatingLoaderImgs.forEach((src) => {
+                let img = document.createElement('img');
+                img.src = src;
+                img.className = 'floating-img';
+                img.style.left = random(0, width - 120) + 'px';
+                img.style.top = random(0, height - 80) + 'px';
+                img.dataset.dx = random(1, 2) * (Math.random() > 0.5 ? 1 : -1);
+                img.dataset.dy = random(0.7, 1.4) * (Math.random() > 0.5 ? 1 : -1);
+                area.appendChild(img);
+            });
+            floatingLoaderSections.forEach((html) => {
+                let div = document.createElement('div');
+                div.className = 'floating-section-loader';
+                div.innerHTML = html;
+                div.style.left = random(0, width - 260) + 'px';
+                div.style.top = random(0, height - 80) + 'px';
+                div.dataset.dx = random(0.7, 1.2) * (Math.random() > 0.5 ? 1 : -1);
+                div.dataset.dy = random(0.7, 1.2) * (Math.random() > 0.5 ? 1 : -1);
+                area.appendChild(div);
+            });
+        }
+        function animateFloatingLoader() {
+            const area = document.getElementById('loader-floating');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const elements = area.children;
+            for (let el of elements) {
+                let x = parseFloat(el.style.left);
+                let y = parseFloat(el.style.top);
+                let dx = parseFloat(el.dataset.dx);
+                let dy = parseFloat(el.dataset.dy);
+                let w = el.classList.contains('floating-img') ? 120 : 260;
+                let h = el.classList.contains('floating-img') ? 80 : 80;
+                x += dx;
+                y += dy;
+                if (x < 0 || x > width - w) {
+                    el.dataset.dx = -dx;
+                    x = Math.max(0, Math.min(x, width - w));
+                }
+                if (y < 0 || y > height - h) {
+                    el.dataset.dy = -dy;
+                    y = Math.max(0, Math.min(y, height - h));
+                }
+                el.style.left = x + 'px';
+                el.style.top = y + 'px';
+            }
+            requestAnimationFrame(animateFloatingLoader);
+        }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      animateLoader();
-      images.forEach((img, i) => {
-        img.addEventListener('click', () => openLightbox(i));
-      });
+        // --- Fondo dinámico con imágenes transparentes y aleatorias ---
+        function createBackgroundFloatingImages() {
+            const backgroundArea = document.getElementById('background-floating-images');
+            const numImages = 20; // Más imágenes para un efecto más denso
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
 
-      // Carga feed rAVe corregido
-      const container = document.getElementById('rave-feed');
-      const rssUrl = 'https://www.ravepubs.com/feed/';
-      const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+            for (let i = 0; i < numImages; i++) {
+                const img = document.createElement('img');
+                // Selecciona una imagen aleatoria de toda la galería
+                img.src = allGalleryImageUrls[Math.floor(random(0, allGalleryImageUrls.length))];
+                img.className = 'bg-floating-img';
 
-      fetch(apiUrl)
-        .then(response => {
-          if (!response.ok) throw new Error('Error en la respuesta de la API');
-          return response.json();
-        })
-        .then(data => {
-          if (!data.items || !Array.isArray(data.items)) {
-            container.innerHTML = '<li>No se encontraron noticias.</li>';
-            return;
-          }
-          container.innerHTML = '';
-          data.items.slice(0, 5).forEach(item => {
-            const li = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = item.link;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            link.textContent = item.title;
-            li.appendChild(link);
-            const date = document.createElement('small');
-            date.style.color = '#666';
-            date.style.display = 'block';
-            date.textContent = new Date(item.pubDate).toLocaleDateString();
-            li.appendChild(date);
-            container.appendChild(li);
-          });
-        })
-        .catch(error => {
-          container.innerHTML = '<li>No se pudo cargar el feed de noticias.</li>';
-          console.error('Error al cargar noticias rAVe:', error);
+                const size = random(200, 400); // Tamaño aleatorio más grande para las imágenes de fondo
+                img.style.width = size + 'px';
+                img.style.height = size + 'px';
+
+                // Posición aleatoria dentro de la ventana
+                img.style.left = random(-size / 2, screenWidth - size / 2) + 'px';
+                img.style.top = random(-size / 2, screenHeight - size / 2) + 'px';
+
+                img.style.animationDelay = random(0, 10) + 's'; // Retraso aleatorio para la animación
+                img.style.animationDuration = random(12, 25) + 's'; // Duración aleatoria más larga
+                backgroundArea.appendChild(img);
+            }
+        }
+
+
+        // Lightbox Functions
+        let currentImage = 0;
+        const images = document.querySelectorAll('.gallery-grid img');
+        function openLightbox(index) {
+            currentImage = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = images[currentImage].src;
+            lightbox.style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+        function navigateLightbox(dir) {
+            currentImage = (currentImage + dir + images.length) % images.length;
+            document.getElementById('lightbox-img').src = images[currentImage].src;
+        }
+
+        // Cerrar lightbox con la tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('lightbox').style.display === 'flex') {
+                closeLightbox();
+            }
         });
+
+        // Carga de Noticias (rAVe [PUBS])
+        fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.ravepubs.com/feed/')
+            .then((res) => res.json())
+            .then((data) => {
+                const container = document.getElementById('rave-feed');
+                if (!data.items) return;
+                data.items.slice(0, 5).forEach((item) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a><br><small>${new Date(
+                        item.pubDate
+                    ).toLocaleDateString()}</small>`;
+                    container.appendChild(li);
+                });
+            })
+            .catch(() => {
+                document.getElementById('rave-feed').innerHTML = '<li>No se pudo cargar el feed.</li>';
+            });
+
+        // Al cargar la página, iniciar el loader y los fondos dinámicos
+        window.addEventListener('DOMContentLoaded', () => {
+            createFloatingLoaderElements();
+            animateFloatingLoader();
+            animateLoader();
+            createBackgroundFloatingImages(); // Cargar las imágenes de fondo dinámico
+        });
+
+        // --- LÓGICA PARA EL CAMBIO DE TEMA OSCURO ---
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const themeIcon = themeToggle.querySelector('i');
+
+    // Función para aplicar el tema guardado o el preferido por el sistema
+    const applyTheme = () => {
+        const savedTheme = localStorage.getItem('theme');
+        // Chequea si el sistema del usuario prefiere el modo oscuro
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDarkMode)) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+    };
+
+    // Función para cambiar el tema
+    const setTheme = (theme) => {
+        if (theme === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.className = 'fas fa-sun'; // Cambia a ícono de sol
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.classList.remove('dark-mode');
+            themeIcon.className = 'fas fa-moon'; // Cambia a ícono de luna
+            localStorage.setItem('theme', 'light');
+        }
+    };
+
+    // Evento de clic en el botón
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+        if (currentTheme === 'dark') {
+            setTheme('light');
+        } else {
+            setTheme('dark');
+        }
     });
-  </script>
+
+    // Aplicar el tema al cargar la página
+    document.addEventListener('DOMContentLoaded', applyTheme);
+
+    </script>
 </body>
 </html>
