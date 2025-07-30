@@ -656,7 +656,7 @@
     <div id="loader-bg">
         <div id="loader-floating"></div>
         <div id="loader-logo-container">
-            <img id="loader-logo" src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png" alt="Logo Integravision" />
+            <video id="loader-logo" src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/ivslogovid300725.mp4" autoplay muted loop playsinline></video>
         </div>
         <div id="loader-bar-bg">
             <div id="loader-bar"></div>
@@ -673,11 +673,15 @@
             </button>
             <p>Transformando la educación a través de soluciones audiovisuales integradas.</p>
         </div>
-        <img
-            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs.png"
+        <video
+            id="main-logo-video"
+            src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/ivslogovid300725.mp4"
             alt="Logo Integravision"
             class="logo-redondo"
-        />
+            muted
+            playsinline
+            title="Haz click para animar el logo"
+        ></video>
         <div class="nav-buttons-container">
             <a class="hero-button" href="#page-gallery">Nuestra Galería</a>
             <a class="hero-button" href="#page-contact-news">Contáctanos y Noticias</a>
@@ -1012,6 +1016,16 @@
     // Aplicar el tema al cargar la página
     document.addEventListener('DOMContentLoaded', applyTheme);
 
+// Lógica para reproducir el video del logo principal al hacer clic
+        const mainLogoVideo = document.getElementById('main-logo-video');
+
+        if (mainLogoVideo) {
+            mainLogoVideo.addEventListener('click', () => {
+                // Reinicia el video y lo reproduce
+                mainLogoVideo.currentTime = 0;
+                mainLogoVideo.play();
+            });
+        }
     </script>
 </body>
 </html>
