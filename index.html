@@ -650,6 +650,106 @@
                 display: none;
             }
         }
+
+        /* --- ESTILOS PARA LA NUEVA GALERÍA CON FILTROS --- */
+        #gallery-filters {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: 2px solid var(--secondary-color);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button:hover {
+            background-color: var(--secondary-color);
+            color: #fff;
+        }
+
+        .filter-button.active {
+            background-color: var(--secondary-color);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+        }
+        
+        body.dark-mode .filter-button {
+             background-color: #374151;
+             border-color: var(--secondary-color);
+             color: var(--primary-color);
+        }
+
+        body.dark-mode .filter-button:hover,
+        body.dark-mode .filter-button.active {
+            background-color: var(--secondary-color);
+            color: #fff;
+        }
+
+        .gallery {
+            width: 100%;
+            max-width: 950px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+        }
+
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: rgba(255,255,255,0.8);
+            pointer-events: none; /* Allows clicks to go through to the item */
+        }
+        
+        /* Estilos para el nuevo lightbox de video */
+        #video-lightbox video {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            background: black;
+        }
     </style>
 </head>
 <body>
@@ -691,37 +791,30 @@
 
     <section id="page-gallery" class="page-section">
         <h2 class="gallery-title">Galería de Proyectos</h2>
-        <div class="gallery-grid" id="gallery">
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg" alt="Proyecto 1" onclick="openLightbox(0)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg" alt="Proyecto 2" onclick="openLightbox(1)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg" alt="Proyecto 3" onclick="openLightbox(2)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg" alt="Proyecto 4" onclick="openLightbox(3)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg" alt="Proyecto 5" onclick="openLightbox(4)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg" alt="Proyecto 6" onclick="openLightbox(5)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-12-10%2012.56.50.jpg" alt="Proyecto 7" onclick="openLightbox(6)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2014-09-30_02_47_14.gif" alt="Proyecto 8" onclick="openLightbox(7)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20160829_122833_HDR.jpg" alt="Proyecto 9" onclick="openLightbox(8)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20190307_082923_HDR.jpg" alt="Proyecto 10" onclick="openLightbox(9)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/4.png" alt="Proyecto 11" onclick="openLightbox(10)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6D5DFE3FEA648B4F1C6E88709F1277A3_7C0.jpeg" alt="Proyecto 12" onclick="openLightbox(11)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6b46cb2d-f6a3-422b-b964-50ae060f882a.jpg" alt="Proyecto 13" onclick="openLightbox(12)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/7340b7fc-1c47-4ec1-b24e-3ef4d5868f54.jpg" alt="Proyecto 14" onclick="openLightbox(13)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/9d580304-14e2-467e-8400-b8e4c4a72cf0.jpg" alt="Proyecto 15" onclick="openLightbox(14)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DIRECTORIO%20TVS.jpg" alt="Proyecto 16" onclick="openLightbox(15)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DMC-FZ70721.JPG" alt="Proyecto 17" onclick="openLightbox(16)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/Dise%C3%B1o%20de%20aula.png" alt="Proyecto 18" onclick="openLightbox(17)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0043.jpg" alt="Proyecto 19" onclick="openLightbox(18)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0097.jpg" alt="Proyecto 20" onclick="openLightbox(19)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0099.jpg" alt="Proyecto 21" onclick="openLightbox(20)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%202.png" alt="Proyecto 22" onclick="openLightbox(21)" />
-            <img src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%20310717.png" alt="Proyecto 23" onclick="openLightbox(22)" />
+
+        <div id="gallery-filters">
+            <button class="filter-button active" data-filter="all">Todas</button>
+            <button class="filter-button" data-filter="implementaciones">Implementaciones</button>
+            <button class="filter-button" data-filter="modelados">Modelados</button>
+            <button class="filter-button" data-filter="accesorios">Accesorios</button>
         </div>
-        <div class="lightbox" id="lightbox">
+
+        <div id="gallery-container">
+            </div>
+
+        <div class="lightbox" id="image-lightbox">
             <img id="lightbox-img" src="" alt="Imagen ampliada" />
             <div class="controls">
                 <i class="fas fa-arrow-left" onclick="navigateLightbox(-1)" aria-label="Imagen anterior"></i>
-                <i class="fas fa-times" onclick="closeLightbox()" aria-label="Cerrar"></i>
+                <i class="fas fa-times" onclick="closeImageLightbox()" aria-label="Cerrar"></i>
                 <i class="fas fa-arrow-right" onclick="navigateLightbox(1)" aria-label="Imagen siguiente"></i>
+            </div>
+        </div>
+
+        <div class="lightbox" id="video-lightbox">
+            <video id="lightbox-video" src="" controls muted></video>
+            <div class="controls">
+                <i class="fas fa-times" onclick="closeVideoLightbox()" aria-label="Cerrar"></i>
             </div>
         </div>
     </section>
@@ -772,45 +865,212 @@
     </section>
 
     <script>
-        // Todas las URLs de las imágenes de la galería para el fondo dinámico y loader
-        const allGalleryImageUrls = [
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/08-parltante%20-%202%20unidades.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-01-24%2010.33.29.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-02-03%2012.47.38.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.35.19.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-09-24%2012.36.56.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2012-12-10%2012.56.50.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/2014-09-30_02_47_14.gif',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20160829_122833_HDR.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/20190307_082923_HDR.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/4.png',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6D5DFE3FEA648B4F1C6E88709F1277A3_7C0.jpeg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/6b46cb2d-f6a3-422b-b964-50ae060f882a.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/7340b7fc-1c47-4ec1-b24e-3ef4d5868f54.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/9d580304-14e2-467e-8400-b8e4c4a72cf0.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DIRECTORIO%20TVS.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/DMC-FZ70721.JPG',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/Dise%C3%B1o%20de%20aula.png',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0043.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0097.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/IMAG0099.jpg',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%202.png',
-            'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/dise%C3%B1o%20de%20rack%20tv%20310717.png'
-        ];
+        // --- INICIO DE LA NUEVA LÓGICA DE LA PÁGINA ---
 
-        // Loader: barra de progreso y ocultar loader tras 3 segundos
-        let loaderBar = null,
-            loaderBg = null;
-        let progress = 0;
-        let duration = 3000;
-        let interval = 30;
-        let step = 100 / (duration / interval);
+        // URL base para todas las imágenes y videos en GitHub
+        const GITHUB_BASE_URL = 'https://raw.githubusercontent.com/tomcorc64/integravision-web/main/';
 
-        function animateLoader() {
-            loaderBar = document.getElementById('loader-bar');
-            loaderBg = document.getElementById('loader-bg');
-            let intv = setInterval(() => {
+        // Objeto con todas las galerías y su contenido
+        const galleries = {
+            implementaciones: {
+                title: 'Implementaciones de Soluciones de Integracion AV',
+                items: [
+                    { src: '079c43c3-f39b-48ed-ad41-19ab100e2286.jpg', type: 'image' },
+                    { src: '2012-01-24%2010.25.22.jpg', type: 'image' },
+                    { src: '2012-01-24%2010.33.29.jpg', type: 'image' },
+                    { src: '20121108_094130.jpg', type: 'image' },
+                    { src: '2012-12-10%2011.46.24.jpg', type: 'image' },
+                    { src: '2013-01-24%2008.02.09(1).jpg', type: 'image' },
+                    { src: '2014-02-24_19-54-40_226%20(2).jpg', type: 'image' },
+                    { src: '2014-02-24_19-55-11_42(1).jpg', type: 'image' },
+                    { src: '2014-09-30_02_47_14.gif', type: 'image' },
+                    { src: '20160408_121513.jpg', type: 'image' },
+                    { src: '20160829_122833_HDR.jpg', type: 'image' },
+                    { src: '20160829_163701_HDR.jpg', type: 'image' },
+                    { src: '20190307_082923_HDR.jpg', type: 'image' },
+                    { src: '20190307_082928_HDR.jpg', type: 'image' },
+                    { src: '20190307_113620_HDR.jpg', type: 'image' },
+                    { src: '65d8b410-7dc7-49f3-a544-39fdbacb13b0.jpg', type: 'image' },
+                    { src: '6D5DFE3FEA648B4F1C6E88709F1277A3_7C0.jpeg', type: 'image' },
+                    { src: '85e33b45-d3a0-4394-94db-108eddeaacab.jpg', type: 'image' },
+                    { src: '921a4898-7922-4e38-8f7b-f6c1929b994d.jpg', type: 'image' },
+                    { src: 'AOC-LIMA-PRESENTACI%C3%93N11ABRIL-2-590243.jpg', type: 'image' },
+                    { src: 'DMC-FZ70374.JPG', type: 'image' },
+                    { src: 'DMC-FZ70477.JPG', type: 'image' },
+                    { src: 'e0ce0942-c800-43cb-bc14-1a32b31f4936.jpg', type: 'image' },
+                    { src: 'IMAG0008.jpg', type: 'image' },
+                    { src: 'IMAG0043.jpg', type: 'image' },
+                    { src: 'IMG-20130125-WA0000.jpg', type: 'image' },
+                    { src: 'IMG_20131219_130127956.jpg', type: 'image' },
+                    { src: 'IMG_20150126_143827982_HDR.jpg', type: 'image' },
+                    { src: 'IMG_20150407_173026.jpg', type: 'image' },
+                    { src: 'IMG-20180905-WA0001.jpg', type: 'image' },
+                    { src: 'IMG_20190405_195843769.jpg', type: 'image' },
+                    { src: 'IMG_20190614_111832749%20(2).jpg', type: 'image' },
+                    { src: 'IMG_20190614_111914142.jpg', type: 'image' },
+                    { src: 'IMG_20190614_185320494.jpg', type: 'image' },
+                    { src: 'IMG_20190614_185430514.jpg', type: 'image' },
+                    { src: 'IMG_20190724_173321466.jpg', type: 'image' },
+                    { src: 'IMG_20190724_173401771.jpg', type: 'image' },
+                    { src: 'IMG_20191213_141159202-PANO.jpg', type: 'image' },
+                    { src: 'IMG-20200325-WA0009.jpg', type: 'image' },
+                    { src: 'IMG20201109123530.jpg', type: 'image' },
+                    { src: 'IMG20210301085938.jpg', type: 'image' },
+                    { src: 'IMG20220608133046.jpg', type: 'image' },
+                    { src: 'IMG20221028101801.jpg', type: 'image' },
+                    { src: 'IMG20230130103603.jpg', type: 'image' },
+                    { src: 'IMG20230717103507.jpg', type: 'image' },
+                    { src: 'IMG20230718152337.jpg', type: 'image' },
+                    { src: 'IMG20231018143127.jpg', type: 'image' },
+                    { src: 'IMG20240507101909.jpg', type: 'image' },
+                    { src: 'IMG_20240830_123414608_AE.jpg', type: 'image' },
+                    { src: 'IMG_20241217_122721330_AE.jpg', type: 'image' },
+                    { src: 'IMG-20241219-WA0050.jpg', type: 'image' },
+                    { src: 'P1030043.JPG', type: 'image' },
+                    { src: 'P1030047.JPG', type: 'image' },
+                    { src: 'WhatsApp%20Image%202021-01-20%20at%2009.39.49.jpeg', type: 'image' },
+                    { src: 'WhatsApp%20Image%202021-10-18%20at%2011.19.55%20(3).jpeg', type: 'image' },
+                    { src: 'WhatsApp%20Image%202021-10-18%20at%2011.19.55.jpeg', type: 'image' }
+                ]
+            },
+            modelados: {
+                title: 'Modelados de Integracion AV',
+                items: [
+                    { src: '4.png', type: 'image' },
+                    { src: 'actual%202%20(2).JPG', type: 'image' },
+                    { src: 'Auditorio%20AC%202.png', type: 'image' },
+                    { src: 'AUDITORIO%20AC%20RETORNOS(2).png', type: 'image' },
+                    { src: 'Directorio.png', type: 'image' },
+                    { src: 'direectorio%20ccl%201.png', type: 'image' },
+                    { src: 'direectorio%20ccl%203.png', type: 'image' },
+                    { src: 'Dise%C3%B1o%20de%20aula%20(1)(1).png', type: 'image' },
+                    { src: 'Dise%C3%B1o%20de%20aula.png', type: 'image' },
+                    { src: 'dise%C3%B1o%20de%20rack%20tv%20310717.png', type: 'image' },
+                    { src: 'luz%20del%20sur%20modelado%20opciones%20(3).png', type: 'image' },
+                    { src: 'luz%20del%20sur%20modelado%20opciones%20(5).png', type: 'image' },
+                    { src: 'MINJUS%20CALLAO%20CAMARA%20GESELL%20(1).png', type: 'image' },
+                    { src: 'MINJUS%20CALLAO%20CAMARA%20GESELL%20(2).png', type: 'image' },
+                    { src: 'MINJUS%20CALLAO%20CAMARA%20GESELL.png', type: 'image' },
+                    { src: 'mod%202%20sala%20de%20reuniones%20adidas%20030111.jpg', type: 'image' },
+                    { src: 'mod%206%20sala%20de%20reuniones%20adidas%20030111.jpg', type: 'image' },
+                    { src: 'opc2-c.JPG', type: 'image' },
+                    { src: 'opcion%202%20-%20aula%20hibrida%20(3).png', type: 'image' },
+                    { src: 'OPERADORES%20101120%20(2).png', type: 'image' },
+                    { src: 'OPERADORES%20101120.png', type: 'image' },
+                    { src: 'SALA%20OVAL%20180321-1.png', type: 'image' },
+                    { src: 'Screenshot_20230106_041356.png', type: 'image' },
+                    { src: 'vista%205.png', type: 'image' },
+                    { src: 'vista%206.png', type: 'image' }
+                ]
+            },
+            accesorios: {
+                title: 'Accesorios de Integracion AV',
+                items: [
+                    { src: '08-parltante%20-%202%20unidades.jpg', type: 'image' },
+                    { src: '09b7a199-313b-4848-b34f-dc4fa88e9c16.jpg', type: 'image' },
+                    { src: '2012-01-24%2010.42.13.jpg', type: 'image' },
+                    { src: '2012-01-24%2010.44.44.jpg', type: 'image' },
+                    { src: '2012-02-03%2012.47.38.jpg', type: 'image' },
+                    { src: '2012-10-24%2011.56.07.jpg', type: 'image' },
+                    { src: '2012-12-10%2012.56.50.jpg', type: 'image' },
+                    { src: '20160829_163656_HDR.jpg', type: 'image' },
+                    { src: '20190102_104350_HDR.jpg', type: 'image' },
+                    { src: '20190102_104423_HDR.jpg', type: 'image' },
+                    { src: '20190102_104530_HDR.jpg', type: 'image' },
+                    { src: '45b36dd9-314a-4806-ac07-a787081b9f22.jpg', type: 'image' },
+                    { src: '69022eda-cd68-4908-b5a6-07c8763fbc2f.jpg', type: 'image' },
+                    { src: '809f14db-b668-4ebe-859e-e7137b250aa6.jpg', type: 'image' },
+                    { src: '97dec14e-f5ce-4367-a610-a8676794aa12.jpg', type: 'image' },
+                    { src: '9d580304-14e2-467e-8400-b8e4c4a72cf0.jpg', type: 'image' },
+                    { src: 'DIRECTORIO%20TVS.jpg', type: 'image' },
+                    { src: 'DMC-FZ70600.JPG', type: 'image' },
+                    { src: 'DMC-FZ70629.JPG', type: 'image' },
+                    { src: 'DMC-FZ70721.JPG', type: 'image' },
+                    { src: 'IMAG0097.jpg', type: 'image' },
+                    { src: 'IMAG0099.jpg', type: 'image' },
+                    { src: 'IMAG0214.jpg', type: 'image' },
+                    { src: 'IMAG0217.jpg', type: 'image' },
+                    { src: 'IMAG0753.jpg', type: 'image' },
+                    { src: 'IMAG0754.jpg', type: 'image' },
+                    { src: 'IMAG0804.jpg', type: 'image' },
+                    { src: 'IMAG0805.jpg', type: 'image' },
+                    { src: 'IMG_20150307_172321.jpg', type: 'image' },
+                    { src: 'IMG_20150528_124532.jpg', type: 'image' },
+                    { src: 'IMG-20170815-WA0009.jpg', type: 'image' },
+                    { src: 'IMG_20190613_142949605.jpg', type: 'image' },
+                    { src: 'IMG_20190613_143803714.jpg', type: 'image' },
+                    { src: 'IMG_20190613_143832949.jpg', type: 'image' },
+                    { src: 'IMG_20190614_101641553.jpg', type: 'image' },
+                    { src: 'IMG_20190614_121421218.jpg', type: 'image' },
+                    { src: 'IMG_20190614_123123081.jpg', type: 'image' },
+                    { src: 'IMG_20190628_183807218.jpg', type: 'image' },
+                    { src: 'IMG-20191026-WA0022.jpg', type: 'image' },
+                    { src: 'IMG_20191028_195706005.jpg', type: 'image' },
+                    { src: 'IMG_20191028_195900111.jpg', type: 'image' },
+                    { src: 'IMG-20210316-WA0007.jpg', type: 'image' },
+                    { src: 'IMG-20210330-WA0007.jpeg', type: 'image' },
+                    { src: 'IMG20210727125634.jpg', type: 'image' },
+                    { src: 'IMG20210730084545.jpg', type: 'image' },
+                    { src: 'IMG20210929100724.jpg', type: 'image' },
+                    { src: 'IMG20210929104959.jpg', type: 'image' },
+                    { src: 'IMG20211025110805.jpg', type: 'image' },
+                    { src: 'IMG20230130100902.jpg', type: 'image' },
+                    { src: 'IMG20230130101141.jpg', type: 'image' },
+                    { src: 'IMG20230130101222.jpg', type: 'image' },
+                    { src: 'IMG20230130103508.jpg', type: 'image' },
+                    { src: 'IMG_20230209_124439.jpg', type: 'image' },
+                    { src: 'IMG_20230523_102556.jpg', type: 'image' },
+                    { src: 'IMG20230718152344.jpg', type: 'image' },
+                    { src: 'IMG20230815102639.jpg', type: 'image' },
+                    { src: 'IMG20231018163702.jpg', type: 'image' },
+                    { src: 'IMG20231018163756.jpg', type: 'image' },
+                    { src: 'IMG20240129112152.jpg', type: 'image' },
+                    { src: 'IMG-20240809-WA0029.jpg', type: 'image' },
+                    { src: 'IMG_20240903_101848664_HDR_AE.jpg', type: 'image' },
+                    { src: 'IMG_20240927_105653908_HDR_AE.jpg', type: 'image' },
+                    { src: 'IMG_20240927_105707713_AE.jpg', type: 'image' },
+                    { src: 'IMG_20241218_103805305_AE.jpg', type: 'image' },
+                    { src: 'IMG-20241218-WA0003%20(2).jpg', type: 'image' },
+                    { src: 'IMG_20250213_174821279_AE.jpg', type: 'image' },
+                    { src: 'IMG_20250213_174825212_AE.jpg', type: 'image' },
+                    { src: 'IMG_20250213_174836332_AE.jpg', type: 'image' },
+                    { src: 'IMG_20250213_174844674_AE.jpg', type: 'image' },
+                    { src: 'IMG_20250220_164943725_AE.jpg', type: 'image' },
+                    { src: 'P1030049.JPG', type: 'image' },
+                    { src: 'P1030053.JPG', type: 'image' },
+                    { src: 'Panasonic3.jpg', type: 'image' },
+                    { src: 'Samsung%20Large%20Digital%20Signage%20Video%20Wall%20Displa.mp4', type: 'video' },
+                    { src: 'terraza%20comedor%201.jpg', type: 'image' },
+                    { src: 'VID_20190613_144428643.mp4', type: 'video' },
+                    { src: 'VID_20190613_144610668.mp4', type: 'video' },
+                    { src: 'VID_20190614_104804790.mp4', type: 'video' }
+                ]
+            }
+        };
+
+        // --- INICIALIZACIÓN Y FUNCIONES PRINCIPALES ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar todas las funciones de la página
+            initLoader();
+            initBackgrounds();
+            initNewsFeed();
+            initThemeToggle();
+            initMainLogoVideo();
+            initGallery();
+        });
+
+        // --- SECCIÓN: PANTALLA DE CARGA (LOADER) ---
+        function initLoader() {
+            const loaderBar = document.getElementById('loader-bar');
+            const loaderBg = document.getElementById('loader-bg');
+            if (!loaderBar || !loaderBg) return;
+
+            let progress = 0;
+            const duration = 3000;
+            const interval = 30;
+            const step = 100 / (duration / interval);
+
+            const intv = setInterval(() => {
                 progress += step;
                 if (progress > 100) progress = 100;
                 loaderBar.style.width = progress + '%';
@@ -819,31 +1079,25 @@
                     loaderBg.style.opacity = '0';
                     setTimeout(() => {
                         loaderBg.style.display = 'none';
-                        // Habilitar scroll en el body una vez que el loader desaparece
                         document.body.style.overflowY = 'scroll';
                     }, 500);
                 }
             }, interval);
         }
 
-        // Función auxiliar para números aleatorios
-        function random(min, max) {
-            return Math.random() * (max - min) + min;
-        }
+        // --- SECCIÓN: FONDOS Y ANIMACIONES VISUALES ---
+        function initBackgrounds() {
+            const allImageUrls = Object.values(galleries).flatMap(gallery => gallery.items.filter(item => item.type === 'image').map(item => GITHUB_BASE_URL + item.src));
+            
+            const random = (min, max) => Math.random() * (max - min) + min;
 
-        // --- Animación de elementos flotantes en loader ---
-        const floatingLoaderImgs = allGalleryImageUrls.slice(0, 6); // Usar algunas imágenes de la galería
-        const floatingLoaderSections = [
-            '<b>Contáctanos</b>',
-            'Educación a través de soluciones audiovisuales integradas.',
-            'Galería de Proyectos',
-            'Noticias rAVe [PUBS]',
-        ];
-        function createFloatingLoaderElements() {
+            // Elementos flotantes del loader
+            const floatingLoaderImgs = allImageUrls.slice(0, 6);
             const area = document.getElementById('loader-floating');
             const width = window.innerWidth;
             const height = window.innerHeight;
-            floatingLoaderImgs.forEach((src) => {
+
+            floatingLoaderImgs.forEach(src => {
                 let img = document.createElement('img');
                 img.src = src;
                 img.className = 'floating-img';
@@ -853,179 +1107,231 @@
                 img.dataset.dy = random(0.7, 1.4) * (Math.random() > 0.5 ? 1 : -1);
                 area.appendChild(img);
             });
-            floatingLoaderSections.forEach((html) => {
-                let div = document.createElement('div');
-                div.className = 'floating-section-loader';
-                div.innerHTML = html;
-                div.style.left = random(0, width - 260) + 'px';
-                div.style.top = random(0, height - 80) + 'px';
-                div.dataset.dx = random(0.7, 1.2) * (Math.random() > 0.5 ? 1 : -1);
-                div.dataset.dy = random(0.7, 1.2) * (Math.random() > 0.5 ? 1 : -1);
-                area.appendChild(div);
-            });
-        }
-        function animateFloatingLoader() {
-            const area = document.getElementById('loader-floating');
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            const elements = area.children;
-            for (let el of elements) {
-                let x = parseFloat(el.style.left);
-                let y = parseFloat(el.style.top);
-                let dx = parseFloat(el.dataset.dx);
-                let dy = parseFloat(el.dataset.dy);
-                let w = el.classList.contains('floating-img') ? 120 : 260;
-                let h = el.classList.contains('floating-img') ? 80 : 80;
-                x += dx;
-                y += dy;
-                if (x < 0 || x > width - w) {
-                    el.dataset.dx = -dx;
-                    x = Math.max(0, Math.min(x, width - w));
+            
+            function animateFloating() {
+                const elements = area.children;
+                for (let el of elements) {
+                    let x = parseFloat(el.style.left);
+                    let y = parseFloat(el.style.top);
+                    let dx = parseFloat(el.dataset.dx);
+                    let dy = parseFloat(el.dataset.dy);
+                    let w = el.offsetWidth;
+                    let h = el.offsetHeight;
+                    x += dx;
+                    y += dy;
+                    if (x < 0 || x > width - w) el.dataset.dx = -dx;
+                    if (y < 0 || y > height - h) el.dataset.dy = -dy;
+                    el.style.left = x + 'px';
+                    el.style.top = y + 'px';
                 }
-                if (y < 0 || y > height - h) {
-                    el.dataset.dy = -dy;
-                    y = Math.max(0, Math.min(y, height - h));
+                if (document.getElementById('loader-bg').style.display !== 'none') {
+                    requestAnimationFrame(animateFloating);
                 }
-                el.style.left = x + 'px';
-                el.style.top = y + 'px';
             }
-            requestAnimationFrame(animateFloatingLoader);
-        }
+            animateFloating();
 
-        // --- Fondo dinámico con imágenes transparentes y aleatorias ---
-        function createBackgroundFloatingImages() {
+            // Fondo dinámico principal
             const backgroundArea = document.getElementById('background-floating-images');
-            const numImages = 20; // Más imágenes para un efecto más denso
-            const screenWidth = window.innerWidth;
-            const screenHeight = window.innerHeight;
-
-            for (let i = 0; i < numImages; i++) {
+            for (let i = 0; i < 20; i++) {
                 const img = document.createElement('img');
-                // Selecciona una imagen aleatoria de toda la galería
-                img.src = allGalleryImageUrls[Math.floor(random(0, allGalleryImageUrls.length))];
+                img.src = allImageUrls[Math.floor(random(0, allImageUrls.length))];
                 img.className = 'bg-floating-img';
-
-                const size = random(200, 400); // Tamaño aleatorio más grande para las imágenes de fondo
+                const size = random(200, 400);
                 img.style.width = size + 'px';
                 img.style.height = size + 'px';
-
-                // Posición aleatoria dentro de la ventana
-                img.style.left = random(-size / 2, screenWidth - size / 2) + 'px';
-                img.style.top = random(-size / 2, screenHeight - size / 2) + 'px';
-
-                img.style.animationDelay = random(0, 10) + 's'; // Retraso aleatorio para la animación
-                img.style.animationDuration = random(12, 25) + 's'; // Duración aleatoria más larga
+                img.style.left = random(-size / 2, width - size / 2) + 'px';
+                img.style.top = random(-size / 2, height - size / 2) + 'px';
+                img.style.animationDelay = random(0, 10) + 's';
+                img.style.animationDuration = random(12, 25) + 's';
                 backgroundArea.appendChild(img);
             }
         }
+        
+        // --- SECCIÓN: GALERÍA Y LIGHTBOX ---
+        let currentGalleryItems = [];
+        let currentItemIndex = 0;
 
+        function initGallery() {
+            const galleryContainer = document.getElementById('gallery-container');
+            const filterButtons = document.querySelectorAll('.filter-button');
 
-        // Lightbox Functions
-        let currentImage = 0;
-        const images = document.querySelectorAll('.gallery-grid img');
-        function openLightbox(index) {
-            currentImage = index;
-            const lightbox = document.getElementById('lightbox');
+            // Renderizar todas las galerías inicialmente
+            renderGalleries(galleries);
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const filter = button.dataset.filter;
+                    filterGalleries(filter);
+                });
+            });
+        }
+
+        function renderGalleries(galleriesToRender) {
+            const galleryContainer = document.getElementById('gallery-container');
+            galleryContainer.innerHTML = ''; // Limpiar contenedor
+            
+            for (const key in galleriesToRender) {
+                const galleryData = galleriesToRender[key];
+                const galleryWrapper = document.createElement('div');
+                galleryWrapper.id = `gallery-${key}`;
+                galleryWrapper.className = 'gallery';
+                
+                galleryWrapper.innerHTML = `
+                    <h3 class="gallery-title">${galleryData.title}</h3>
+                    <div class="gallery-grid"></div>
+                `;
+
+                const grid = galleryWrapper.querySelector('.gallery-grid');
+                galleryData.items.forEach((item, index) => {
+                    const fullSrc = GITHUB_BASE_URL + item.src;
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'gallery-item';
+                    itemElement.dataset.type = item.type;
+                    itemElement.dataset.src = fullSrc;
+                    itemElement.dataset.gallery = key;
+                    itemElement.dataset.index = index;
+
+                    if (item.type === 'image') {
+                        itemElement.innerHTML = `<img src="${fullSrc}" alt="${galleryData.title} - Item ${index + 1}">`;
+                    } else if (item.type === 'video') {
+                        itemElement.innerHTML = `
+                            <video src="${fullSrc}#t=0.5" preload="metadata"></video>
+                            <div class="video-overlay"><i class="fas fa-play"></i></div>
+                        `;
+                    }
+                    
+                    itemElement.addEventListener('click', () => openLightbox(itemElement));
+                    grid.appendChild(itemElement);
+                });
+                galleryContainer.appendChild(galleryWrapper);
+            }
+        }
+        
+        function filterGalleries(filter) {
+            if (filter === 'all') {
+                renderGalleries(galleries);
+            } else {
+                const filtered = { [filter]: galleries[filter] };
+                renderGalleries(filtered);
+            }
+        }
+
+        function openLightbox(element) {
+            const type = element.dataset.type;
+            const src = element.dataset.src;
+            const galleryKey = element.dataset.gallery;
+            
+            currentGalleryItems = galleries[galleryKey].items.filter(item => item.type === type);
+            const currentItem = currentGalleryItems.find(item => GITHUB_BASE_URL + item.src === src);
+            currentItemIndex = currentGalleryItems.indexOf(currentItem);
+
+            if (type === 'image') {
+                openImageLightbox(src);
+            } else if (type === 'video') {
+                openVideoLightbox(src);
+            }
+        }
+        
+        function openImageLightbox(src) {
+            const lightbox = document.getElementById('image-lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = images[currentImage].src;
+            lightboxImg.src = src;
             lightbox.style.display = 'flex';
         }
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
-        function navigateLightbox(dir) {
-            currentImage = (currentImage + dir + images.length) % images.length;
-            document.getElementById('lightbox-img').src = images[currentImage].src;
+
+        function closeImageLightbox() {
+            document.getElementById('image-lightbox').style.display = 'none';
         }
 
-        // Cerrar lightbox con la tecla ESC
+        function openVideoLightbox(src) {
+            const lightbox = document.getElementById('video-lightbox');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            lightboxVideo.src = src;
+            lightbox.style.display = 'flex';
+            lightboxVideo.play();
+        }
+
+        function closeVideoLightbox() {
+            const lightbox = document.getElementById('video-lightbox');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            lightboxVideo.pause();
+            lightboxVideo.src = '';
+            lightbox.style.display = 'none';
+        }
+
+        function navigateLightbox(direction) {
+            currentItemIndex = (currentItemIndex + direction + currentGalleryItems.length) % currentGalleryItems.length;
+            const nextItem = currentGalleryItems[currentItemIndex];
+            openImageLightbox(GITHUB_BASE_URL + nextItem.src);
+        }
+
+        // --- SECCIÓN: NOTICIAS, TEMA Y OTROS ---
+        function initNewsFeed() {
+            fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.ravepubs.com/feed/')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('rave-feed');
+                    if (!data.items) return;
+                    container.innerHTML = '';
+                    data.items.slice(0, 5).forEach(item => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a><br><small>${new Date(item.pubDate).toLocaleDateString()}</small>`;
+                        container.appendChild(li);
+                    });
+                })
+                .catch(() => {
+                    document.getElementById('rave-feed').innerHTML = '<li>No se pudo cargar el feed.</li>';
+                });
+        }
+
+        function initThemeToggle() {
+            const themeToggle = document.getElementById('theme-toggle');
+            if (!themeToggle) return;
+            const body = document.body;
+            const themeIcon = themeToggle.querySelector('i');
+
+            const applyTheme = () => {
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(savedTheme === 'dark' || (!savedTheme && prefersDarkMode) ? 'dark' : 'light');
+            };
+
+            const setTheme = (theme) => {
+                body.classList.toggle('dark-mode', theme === 'dark');
+                themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                localStorage.setItem('theme', theme);
+            };
+
+            themeToggle.addEventListener('click', () => {
+                const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+            
+            applyTheme();
+        }
+
+        function initMainLogoVideo() {
+            const mainLogoVideo = document.getElementById('main-logo-video');
+            if (mainLogoVideo) {
+                mainLogoVideo.addEventListener('click', () => {
+                    mainLogoVideo.currentTime = 0;
+                    mainLogoVideo.play();
+                });
+            }
+        }
+        
+        // Cerrar lightboxes con la tecla ESC
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && document.getElementById('lightbox').style.display === 'flex') {
-                closeLightbox();
+            if (e.key !== 'Escape') return;
+            if (document.getElementById('image-lightbox').style.display === 'flex') {
+                closeImageLightbox();
+            }
+            if (document.getElementById('video-lightbox').style.display === 'flex') {
+                closeVideoLightbox();
             }
         });
-
-        // Carga de Noticias (rAVe [PUBS])
-        fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.ravepubs.com/feed/')
-            .then((res) => res.json())
-            .then((data) => {
-                const container = document.getElementById('rave-feed');
-                if (!data.items) return;
-                data.items.slice(0, 5).forEach((item) => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a><br><small>${new Date(
-                        item.pubDate
-                    ).toLocaleDateString()}</small>`;
-                    container.appendChild(li);
-                });
-            })
-            .catch(() => {
-                document.getElementById('rave-feed').innerHTML = '<li>No se pudo cargar el feed.</li>';
-            });
-
-        // Al cargar la página, iniciar el loader y los fondos dinámicos
-        window.addEventListener('DOMContentLoaded', () => {
-            createFloatingLoaderElements();
-            animateFloatingLoader();
-            animateLoader();
-            createBackgroundFloatingImages(); // Cargar las imágenes de fondo dinámico
-        });
-
-        // --- LÓGICA PARA EL CAMBIO DE TEMA OSCURO ---
-
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    const themeIcon = themeToggle.querySelector('i');
-
-    // Función para aplicar el tema guardado o el preferido por el sistema
-    const applyTheme = () => {
-        const savedTheme = localStorage.getItem('theme');
-        // Chequea si el sistema del usuario prefiere el modo oscuro
-        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-        if (savedTheme === 'dark' || (!savedTheme && prefersDarkMode)) {
-            setTheme('dark');
-        } else {
-            setTheme('light');
-        }
-    };
-
-    // Función para cambiar el tema
-    const setTheme = (theme) => {
-        if (theme === 'dark') {
-            body.classList.add('dark-mode');
-            themeIcon.className = 'fas fa-sun'; // Cambia a ícono de sol
-            localStorage.setItem('theme', 'dark');
-        } else {
-            body.classList.remove('dark-mode');
-            themeIcon.className = 'fas fa-moon'; // Cambia a ícono de luna
-            localStorage.setItem('theme', 'light');
-        }
-    };
-
-    // Evento de clic en el botón
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-        if (currentTheme === 'dark') {
-            setTheme('light');
-        } else {
-            setTheme('dark');
-        }
-    });
-
-    // Aplicar el tema al cargar la página
-    document.addEventListener('DOMContentLoaded', applyTheme);
-
-// Lógica para reproducir el video del logo principal al hacer clic
-        const mainLogoVideo = document.getElementById('main-logo-video');
-
-        if (mainLogoVideo) {
-            mainLogoVideo.addEventListener('click', () => {
-                // Reinicia el video y lo reproduce
-                mainLogoVideo.currentTime = 0;
-                mainLogoVideo.play();
-            });
-        }
     </script>
 </body>
 </html>
