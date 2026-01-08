@@ -1,110 +1,128 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Integravision Studio</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
+    <link rel="icon" type="image/png" sizes="192x192"
+        href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
+    <link rel="apple-touch-icon"
+        href="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/favicon1.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-
         /* --- ESTILOS PARA EL BOTÓN DE TEMA OSCURO --- */
 
         /* Posicionamiento del botón */
         .header-content {
-            position: relative; /* Necesario para posicionar el botón dentro */
+            position: relative;
+            /* Necesario para posicionar el botón dentro */
         }
 
         #theme-toggle {
             position: absolute;
             top: 50%;
-            right: 30px; /* Distancia desde la derecha */
-            transform: translateY(-50%); /* Centrado vertical perfecto */
+            right: 30px;
+            /* Distancia desde la derecha */
+            transform: translateY(-50%);
+            /* Centrado vertical perfecto */
             background: none;
             border: none;
             color: var(--white-color);
-            font-size: 1.8rem; /* Tamaño del ícono */
+            font-size: 1.8rem;
+            /* Tamaño del ícono */
             cursor: pointer;
             transition: transform 0.2s ease;
         }
 
         #theme-toggle:hover {
-            transform: translateY(-50%) scale(1.15); /* Efecto al pasar el mouse */
+            transform: translateY(-50%) scale(1.15);
+            /* Efecto al pasar el mouse */
         }
 
 
         /* --- DEFINICIÓN DEL TEMA OSCURO --- */
-
-        /* Cuando el body tenga la clase "dark-mode", estos colores se aplicarán */
         body.dark-mode {
-            --primary-color: #e5e7eb;         /* Color de texto principal (gris claro) */
-            --secondary-color: #14b8a6;       /* Se mantiene el verde azulado para acentos */
-            --light-bg-color: #0f172a;        /* Fondo principal de la página (azul muy oscuro) */
-            --white-color: #1f2937;           /* Fondo de las tarjetas y secciones (azul oscuro) */
-            --gray-border: #4b5563;           /* Color de los bordes */
-            --dark-gray: #9ca3af;             /* Color de texto secundario */
+            --primary-color: #facc15;
+            /* Amarillo intenso para texto principal */
+            --secondary-color: #eab308;
+            /* Amarillo oro para acentos */
+            --light-bg-color: #171717;
+            /* Negro casi puro */
+            --white-color: #262626;
+            /* Gris muy oscuro para tarjetas */
+            --gray-border: #525252;
+            /* Gris medio */
+            --dark-gray: #a3a3a3;
+            /* Gris claro para texto secundario */
         }
 
         body.dark-mode #page-gallery,
         body.dark-mode #page-thanks {
-            background-color: rgba(31,41,55,0.92); /* Fuerte fondo oscuro y semitransparente */
+            background-color: rgba(23, 23, 23, 0.95);
         }
 
-        /* Opcional: para asegurar contraste adecuado en los textos de títulos */
         body.dark-mode .gallery-title,
         body.dark-mode .thank-you-section h2 {
-            color: var(--primary-color); /* O un color específico claro, ejemplo: #e5e7eb */
+            color: var(--primary-color);
         }
 
-        /* Casos especiales que no se cambian automáticamente con las variables */
         body.dark-mode header {
-            background-color: #1f2937; /* El header debe ser oscuro */
-            color: #e5e7eb;
+            background-color: #262626;
+            color: #facc15;
+            border-bottom: 2px solid var(--secondary-color);
         }
 
         body.dark-mode .logo-redondo {
-            border-color: #4b5563; /* Borde del logo */
-            background-color: #374151;
+            border-color: var(--secondary-color);
+            background-color: #171717;
         }
 
         body.dark-mode .thank-you-section p {
-            color: #d1d5db; /* Texto de párrafos en oscuro */
+            color: #e5e5e5;
         }
 
-        /* Cambia el color del ícono del tema cuando está en modo oscuro */
         body.dark-mode #theme-toggle {
-            color: #facc15; /* Color sol (amarillo) */
+            color: var(--primary-color);
         }
 
         :root {
-            --primary-color: #1e3a8a; /* Azul oscuro */
-            --secondary-color: #14b8a6; /* Verde azulado */
-            --light-bg-color: #f9fafb;
+            --primary-color: #000000;
+            /* Negro para texto principal en modo claro */
+            --secondary-color: #fbbf24;
+            /* Amarillo ámbar para acentos/botones */
+            --light-bg-color: #fffbeb;
+            /* Amarillo muy pálido de fondo */
             --white-color: #ffffff;
-            --gray-border: #b0b0b0;
-            --light-gray: #e0e0e0;
-            --dark-gray: #666;
-            --box-shadow-light: 0 2px 6px rgba(0,0,0,0.1);
+            --gray-border: #d4d4d4;
+            --light-gray: #f5f5f5;
+            --dark-gray: #404040;
+            --box-shadow-light: 0 2px 6px rgba(0, 0, 0, 0.1);
             --box-shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.05);
             --box-shadow-strong: 0 2px 12px rgba(0, 0, 0, 0.08);
         }
 
         /* HTML y Body para Scroll Snapping */
-        html, body {
+        html,
+        body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
             background-color: var(--light-bg-color);
             color: var(--primary-color);
-            height: 100%; /* Permite que el body ocupe el 100% de la ventana */
-            overflow: hidden; /* Oculta el scroll inicial antes del loader */
+            height: 100%;
+            /* Permite que el body ocupe el 100% de la ventana */
+            overflow: hidden;
+            /* Oculta el scroll inicial antes del loader */
             scroll-behavior: smooth;
         }
 
         body {
-            scroll-snap-type: y mandatory; /* Habilita el scroll snapping vertical en el body */
-            overflow-y: scroll; /* Permite el scroll vertical en el body */
+            scroll-snap-type: y mandatory;
+            /* Habilita el scroll snapping vertical en el body */
+            overflow-y: scroll;
+            /* Permite el scroll vertical en el body */
         }
 
         /* Pantalla de carga */
@@ -125,6 +143,7 @@
             transition: opacity 0.5s;
             overflow: hidden;
         }
+
         #loader-floating {
             position: absolute;
             width: 100vw;
@@ -134,6 +153,7 @@
             pointer-events: none;
             z-index: 1;
         }
+
         .floating-img,
         .floating-section-loader {
             position: absolute;
@@ -145,11 +165,13 @@
             will-change: transform;
             animation: floatBounce 3s linear infinite;
         }
+
         .floating-img {
             width: 120px;
             height: 80px;
             object-fit: cover;
         }
+
         .floating-section-loader {
             background: var(--white-color);
             padding: 24px 32px;
@@ -161,17 +183,21 @@
             justify-content: center;
             border: 1.5px solid var(--gray-border);
         }
+
         @keyframes floatBounce {
             0% {
                 filter: blur(0px);
             }
+
             50% {
                 filter: blur(2px);
             }
+
             100% {
                 filter: blur(0px);
             }
         }
+
         #loader-logo-container {
             display: flex;
             align-items: center;
@@ -179,6 +205,7 @@
             margin-bottom: 2rem;
             z-index: 2;
         }
+
         #loader-logo {
             width: 270px;
             height: 270px;
@@ -190,17 +217,21 @@
             background: var(--white-color);
             z-index: 2;
         }
+
         @keyframes pulse {
             0% {
                 box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4);
             }
+
             70% {
                 box-shadow: 0 0 0 37.5px rgba(20, 184, 166, 0);
             }
+
             100% {
                 box-shadow: 0 0 0 0 rgba(20, 184, 166, 0);
             }
         }
+
         #loader-bar-bg {
             width: 320px;
             height: 14px;
@@ -211,6 +242,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             z-index: 2;
         }
+
         #loader-bar {
             height: 100%;
             width: 0%;
@@ -224,53 +256,67 @@
             background-color: var(--primary-color);
             color: white;
             padding-top: 0rem;
-            padding-bottom: 1rem; /* Ajuste el padding para los botones */
+            padding-bottom: 1rem;
+            /* Ajuste el padding para los botones */
             text-align: center;
-            position: fixed; /* Fijo en la parte superior */
+            position: fixed;
+            /* Fijo en la parte superior */
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000; /* Asegura que esté por encima de todo el contenido y el fondo */
+            z-index: 1000;
+            /* Asegura que esté por encima de todo el contenido y el fondo */
             border-radius: 0 0 12px 12px;
             box-shadow: var(--box-shadow-light);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .header-content {
             text-align: center;
             padding-top: 1rem;
             position: relative;
             z-index: 1;
             width: 100%;
-            padding-bottom: 0.5rem; /* Espacio antes de los botones */
+            padding-bottom: 0.5rem;
+            /* Espacio antes de los botones */
         }
+
         header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            margin-top: 0; /* Eliminar margen superior predeterminado */
+            margin-top: 0;
+            /* Eliminar margen superior predeterminado */
         }
+
         header p {
             font-size: 1.2rem;
-            margin-bottom: 0.5rem; /* Menos margen para acercar los botones */
+            margin-bottom: 0.5rem;
+            /* Menos margen para acercar los botones */
         }
 
         /* Logo aumentado un 30% con borde plomo y efecto hover */
         .logo-redondo {
-            width: 292.5px; /* 225 * 1.3 */
+            width: 292.5px;
+            /* 225 * 1.3 */
             height: 292.5px;
             border-radius: 50%;
             object-fit: cover;
             position: absolute;
-            bottom: -146.25px; /* Mitad del tamaño para que quede justo al centro del borde inferior */
-            left: 50px; /* Alineado a la izquierda */
+            bottom: -146.25px;
+            /* Mitad del tamaño para que quede justo al centro del borde inferior */
+            left: 50px;
+            /* Alineado a la izquierda */
             border: 5px solid var(--gray-border);
             transition: transform 0.3s ease;
             box-sizing: border-box;
             background-color: var(--white-color);
-            z-index: 1010; /* Encima del header */
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+            z-index: 1010;
+            /* Encima del header */
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
+
         .logo-redondo:hover {
             transform: scale(1.05);
             cursor: pointer;
@@ -282,9 +328,11 @@
             justify-content: center;
             gap: 1rem;
             width: 100%;
-            padding: 0.5rem 0; /* Un poco de padding para los botones */
+            padding: 0.5rem 0;
+            /* Un poco de padding para los botones */
             box-sizing: border-box;
         }
+
         .hero-button {
             background-color: var(--secondary-color);
             color: var(--white-color);
@@ -295,67 +343,107 @@
             cursor: pointer;
             text-decoration: none;
             transition: background-color 0.3s ease;
-            white-space: nowrap; /* Evita que los botones se rompan en varias líneas */
+            white-space: nowrap;
+            /* Evita que los botones se rompan en varias líneas */
         }
+
         .hero-button:hover {
             background-color: #108e7e;
         }
 
         /* Estilos para cada "página" (sección) */
         .page-section {
-            min-height: 100vh; /* Cada sección ocupa al menos el 100% de la altura de la ventana */
+            min-height: 100vh;
+            /* Cada sección ocupa al menos el 100% de la altura de la ventana */
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centra el contenido verticalmente */
+            justify-content: center;
+            /* Centra el contenido verticalmente */
             align-items: center;
             padding: 2rem;
             box-sizing: border-box;
-            scroll-snap-align: start; /* Alinea el inicio de la sección con el borde del contenedor de scroll */
+            scroll-snap-align: start;
+            /* Alinea el inicio de la sección con el borde del contenedor de scroll */
             position: relative;
-            z-index: 2; /* Asegura que el contenido de la página esté sobre el fondo flotante */
-            background-color: rgba(255,255,255,0.85); /* Fondo semi-transparente para la página para que el contenido sea legible */
-            padding-top: 350px; /* Espacio para el header fijo y el logo, ajustado */
-            overflow-y: auto; /* Permite el scroll dentro de la sección si el contenido es demasiado grande */
+            z-index: 2;
+            /* Asegura que el contenido de la página esté sobre el fondo flotante */
+            background-color: rgba(255, 255, 255, 0.85);
+            /* Fondo semi-transparente para la página para que el contenido sea legible */
+            padding-top: 350px;
+            /* Espacio para el header fijo y el logo, ajustado */
+            overflow-y: auto;
+            /* Permite el scroll dentro de la sección si el contenido es demasiado grande */
         }
 
         /* Galería */
         .gallery-title {
-            text-align:center;
-            color:var(--primary-color);
-            font-size:2.5rem;
-            margin-top:2rem;
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-top: 2rem;
             margin-bottom: 2rem;
-            z-index: 3; /* Para que el título esté sobre el fondo semi-transparente de la sección */
+            z-index: 3;
+            /* Para que el título esté sobre el fondo semi-transparente de la sección */
         }
+
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Imágenes un poco más grandes */
-            gap: 15px; /* Más espacio entre imágenes */
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            /* Imágenes un poco más grandes */
+            gap: 15px;
+            /* Más espacio entre imágenes */
             padding: 1.5rem;
-            max-width: 950px; /* Para que la galería no ocupe todo el ancho si main-container es más grande */
+            max-width: 950px;
+            /* Para que la galería no ocupe todo el ancho si main-container es más grande */
             width: 100%;
             box-sizing: border-box;
-            background-color: rgba(255,255,255,0.8); /* Fondo semi-transparente para la galería */
+            background-color: rgba(255, 255, 255, 0.8);
+            /* Fondo semi-transparente para la galería */
             border-radius: 12px;
             padding-bottom: 3rem;
             box-shadow: var(--box-shadow-medium);
             z-index: 3;
         }
+
         .gallery-grid img {
             width: 100%;
-            height: 180px; /* Altura fija para uniformidad */
+            height: 180px;
+            /* Altura fija para uniformidad */
             object-fit: cover;
             border-radius: 8px;
             transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Sombra más pronunciada */
-        }
-        .gallery-grid img:hover {
-            transform: scale(1.03); /* Menor aumento para no ser tan brusco */
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            /* Sombra más pronunciada */
         }
 
-        /* Lightbox (ampliador de imágenes) */
+        .gallery-grid img:hover {
+            transform: scale(1.03);
+            /* Menor aumento para no ser tan brusco */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Logo Texture Background */
+        .bg-logo-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://raw.githubusercontent.com/tomcorc64/integravision-web/main/logoivs_vigente.png');
+            background-repeat: repeat;
+            background-size: 300px;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        body.dark-mode .bg-logo-texture {
+            opacity: 0.08;
+            filter: grayscale(100%);
+        }
+
+        /* Unified Lightbox */
         .lightbox {
             display: none;
             position: fixed;
@@ -363,53 +451,82 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             justify-content: center;
             align-items: center;
             flex-direction: column;
             z-index: 10000;
         }
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90vh;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+
+        #lightbox-content-wrapper {
+            position: relative;
+            width: 90%;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
+        #lightbox-img,
+        #lightbox-video {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
         .lightbox .controls {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            color: white;
-            font-size: 2rem;
-            margin-top: 1rem;
+            gap: 3rem;
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-top: 1.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 30px;
+            border-radius: 50px;
         }
+
         .lightbox .controls i {
             cursor: pointer;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .lightbox .controls i:hover {
+            transform: scale(1.2);
+            color: #fff;
         }
 
         /* Contenedor para contacto y noticias lado a lado */
         #contact-news-container {
             display: flex;
             gap: 2rem;
-            padding: 2.5rem; /* Mayor padding */
+            padding: 2.5rem;
+            /* Mayor padding */
             background-color: var(--white-color);
             border-top: 3px solid var(--secondary-color);
             border-radius: 8px;
-            box-shadow: var(--box-shadow-strong); /* Sombra más fuerte */
+            box-shadow: var(--box-shadow-strong);
+            /* Sombra más fuerte */
             justify-content: center;
             flex-wrap: wrap;
             width: 100%;
-            max-width: 900px; /* Más ancho */
+            max-width: 900px;
+            /* Más ancho */
             box-sizing: border-box;
             margin-top: 2rem;
         }
-        #contact-news-container > div {
-            flex: 1 1 48%; /* Ajuste para un poco más de espacio */
+
+        #contact-news-container>div {
+            flex: 1 1 48%;
+            /* Ajuste para un poco más de espacio */
             min-width: 320px;
             box-sizing: border-box;
         }
-        #contact-news-container h2, #contact-news-container h3 {
+
+        #contact-news-container h2,
+        #contact-news-container h3 {
             color: var(--primary-color);
             text-align: center;
             margin-bottom: 1.5rem;
@@ -424,12 +541,14 @@
             box-shadow: var(--box-shadow-light);
             border: 1px solid var(--light-gray);
         }
+
         .contact-form label {
             display: block;
             margin-bottom: 0.5rem;
             color: var(--primary-color);
             font-weight: bold;
         }
+
         .contact-form input[type="text"],
         .contact-form input[type="email"],
         .contact-form textarea {
@@ -442,12 +561,14 @@
             box-sizing: border-box;
             transition: border-color 0.3s ease;
         }
+
         .contact-form input[type="text"]:focus,
         .contact-form input[type="email"]:focus,
         .contact-form textarea:focus {
             border-color: var(--secondary-color);
             outline: none;
         }
+
         .contact-form button[type="submit"] {
             background-color: var(--secondary-color);
             color: var(--white-color);
@@ -458,6 +579,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         .contact-form button[type="submit"]:hover {
             background-color: #108e7e;
             transform: translateY(-2px);
@@ -471,25 +593,29 @@
             box-shadow: var(--box-shadow-light);
             border: 1px solid var(--light-gray);
         }
+
         #rave-news ul {
-            list-style:none;
-            padding:0;
+            list-style: none;
+            padding: 0;
             font-size: 0.95rem;
             line-height: 1.8;
             text-align: left;
         }
+
         #rave-news li a {
             color: var(--primary-color);
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s ease;
         }
+
         #rave-news li a:hover {
             color: var(--secondary-color);
             text-decoration: underline;
         }
+
         #rave-news li small {
-            color:var(--dark-gray);
+            color: var(--dark-gray);
             display: block;
             margin-top: 0.2rem;
             font-size: 0.8rem;
@@ -498,20 +624,24 @@
         /* Sección de Agradecimiento */
         .thank-you-section {
             text-align: center;
-            background-color: rgba(240, 240, 240, 0.9); /* Gris muy suave y semi-transparente */
+            background-color: rgba(240, 240, 240, 0.9);
+            /* Gris muy suave y semi-transparente */
             border-top: 3px solid var(--secondary-color);
             border-radius: 8px;
             box-shadow: var(--box-shadow-strong);
             width: 100%;
-            max-width: 900px; /* Aumenta el ancho */
+            max-width: 900px;
+            /* Aumenta el ancho */
             box-sizing: border-box;
             margin-top: 2rem;
         }
+
         .thank-you-section h2 {
             color: var(--secondary-color);
             margin-bottom: 1.8rem;
             font-size: 2.5rem;
         }
+
         .thank-you-section p {
             margin-bottom: 1.8rem;
             line-height: 1.8;
@@ -520,14 +650,18 @@
             text-align: center;
             text-justify: inter-word;
         }
-        .thank-you-section img.graphic { /* Estilo para el nuevo gráfico */
+
+        .thank-you-section img.graphic {
+            /* Estilo para el nuevo gráfico */
             max-width: 250px;
             height: auto;
             margin-bottom: 2.5rem;
-            opacity: 0.9; /* Pequeña transparencia para integrarse con el fondo */
+            opacity: 0.9;
+            /* Pequeña transparencia para integrarse con el fondo */
             border-radius: 8px;
             box-shadow: var(--box-shadow-medium);
         }
+
         .thank-you-section button {
             background-color: var(--secondary-color);
             color: var(--white-color);
@@ -538,6 +672,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         .thank-you-section button:hover {
             background-color: #108e7e;
             transform: translateY(-2px);
@@ -550,25 +685,49 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            pointer-events: none; /* Permite clicks a través de él */
+            pointer-events: none;
+            /* Permite clicks a través de él */
             overflow: hidden;
-            z-index: 0; /* Asegura que esté en el fondo absoluto */
+            z-index: 0;
+            /* Asegura que esté en el fondo absoluto */
         }
+
         .bg-floating-img {
             position: absolute;
-            opacity: 0.05; /* Muy transparente */
+            opacity: 0.05;
+            /* Muy transparente */
             border-radius: 8px;
             user-select: none;
             object-fit: cover;
             will-change: transform, opacity;
             animation: bgFloatFade 15s infinite ease-in-out alternate;
         }
+
         @keyframes bgFloatFade {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.05; }
-            25% { transform: translate(random(-20, 20)px, random(-20, 20)px) scale(random(1, 1.02)); opacity: 0.07; }
-            50% { transform: translate(random(-20, 20)px, random(-20, 20)px) scale(random(1, 1.04)); opacity: 0.09; }
-            75% { transform: translate(random(-20, 20)px, random(-20, 20)px) scale(random(1, 1.02)); opacity: 0.07; }
-            100% { transform: translate(0, 0) scale(1); opacity: 0.05; }
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.05;
+            }
+
+            25% {
+                transform: translate(random(-20, 20)px, random(-20, 20)px) scale(random(1, 1.02));
+                opacity: 0.07;
+            }
+
+            50% {
+                transform: translate(random(-20, 20)px, random(-20, 20)px) scale(random(1, 1.04));
+                opacity: 0.09;
+            }
+
+            75% {
+                transform: translate(random(-20, 20)px, random(-20, 20)px) scale(random(1, 1.02));
+                opacity: 0.07;
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.05;
+            }
         }
 
 
@@ -576,46 +735,67 @@
         @media (max-width: 768px) {
             header {
                 padding-bottom: 0.5rem;
-                border-radius: 0; /* Sin bordes redondeados en móviles */
-                position: static; /* No fijo en móviles, se desplaza con el contenido */
+                border-radius: 0;
+                /* Sin bordes redondeados en móviles */
+                position: static;
+                /* No fijo en móviles, se desplaza con el contenido */
                 height: auto;
             }
+
             .header-content h1 {
                 font-size: 1.8rem;
             }
+
             .header-content p {
                 font-size: 0.9rem;
             }
+
             .logo-redondo {
-                position: static; /* Se comporta como un elemento normal */
+                position: static;
+                /* Se comporta como un elemento normal */
                 width: 150px;
                 height: 150px;
-                margin: 0.5rem auto 1rem auto; /* Centrar y margen inferior */
+                margin: 0.5rem auto 1rem auto;
+                /* Centrar y margen inferior */
                 display: block;
-                transform: none; /* Eliminar cualquier transformación */
+                transform: none;
+                /* Eliminar cualquier transformación */
                 left: auto;
                 bottom: auto;
-                filter: none; /* Sin sombra en móviles */
+                filter: none;
+                /* Sin sombra en móviles */
             }
+
             .nav-buttons-container {
-                flex-direction: column; /* Botones apilados */
+                flex-direction: column;
+                /* Botones apilados */
                 gap: 0.5rem;
                 padding: 0 1rem;
             }
+
             .hero-button {
                 width: 100%;
                 box-sizing: border-box;
             }
+
             .page-section {
-                padding-top: 1rem; /* Menor padding para el header fijo en móviles, que ahora es estático */
-                min-height: auto; /* Permite que las secciones se adapten a su contenido */
-                scroll-snap-align: none; /* Deshabilita scroll snapping en móviles */
-                overflow-y: visible; /* Permite scroll normal dentro de la sección */
-                background-color: var(--light-bg-color); /* Fondo completo para mejor legibilidad */
+                padding-top: 1rem;
+                /* Menor padding para el header fijo en móviles, que ahora es estático */
+                min-height: auto;
+                /* Permite que las secciones se adapten a su contenido */
+                scroll-snap-align: none;
+                /* Deshabilita scroll snapping en móviles */
+                overflow-y: visible;
+                /* Permite scroll normal dentro de la sección */
+                background-color: var(--light-bg-color);
+                /* Fondo completo para mejor legibilidad */
             }
+
             body {
-                scroll-snap-type: none; /* Deshabilita scroll snapping en el body en móviles */
-                overflow-y: scroll; /* Scroll normal */
+                scroll-snap-type: none;
+                /* Deshabilita scroll snapping en el body en móviles */
+                overflow-y: scroll;
+                /* Scroll normal */
             }
 
             .gallery-grid {
@@ -624,28 +804,35 @@
                 padding: 0.8rem;
                 max-width: 100%;
             }
+
             .gallery-grid img {
                 height: 120px;
             }
+
             #contact-news-container {
                 flex-direction: column;
                 gap: 1.5rem;
                 padding: 1.5rem;
                 max-width: 100%;
             }
-            #contact-news-container > div {
+
+            #contact-news-container>div {
                 min-width: unset;
             }
+
             .thank-you-section {
                 padding: 2rem 1rem;
                 max-width: 100%;
             }
+
             .thank-you-section h2 {
                 font-size: 1.8rem;
             }
+
             .thank-you-section p {
                 font-size: 1rem;
             }
+
             .thank-you-section img.graphic {
                 display: none;
             }
@@ -682,11 +869,11 @@
             color: #fff;
             box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
         }
-        
+
         body.dark-mode .filter-button {
-             background-color: #374151;
-             border-color: var(--secondary-color);
-             color: var(--primary-color);
+            background-color: #374151;
+            border-color: var(--secondary-color);
+            color: var(--primary-color);
         }
 
         body.dark-mode .filter-button:hover,
@@ -699,7 +886,7 @@
             width: 100%;
             max-width: 950px;
         }
-        
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -712,51 +899,50 @@
             cursor: pointer;
             overflow: hidden;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        
+
         .gallery-item:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
         }
 
-        .gallery-item img, .gallery-item video {
+        .gallery-item img,
+        .gallery-item video {
             width: 100%;
             height: 180px;
             object-fit: cover;
             display: block;
         }
-        
+
         .video-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 3rem;
-            color: rgba(255,255,255,0.8);
-            pointer-events: none; /* Allows clicks to go through to the item */
+            color: rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            /* Allows clicks to go through to the item */
         }
-        
+
         /* Estilos para el nuevo lightbox de video */
-        #video-lightbox video {
-            max-width: 90%;
-            max-height: 90vh;
-            border-radius: 8px;
-            background: black;
-        }
     </style>
 </head>
+
 <body>
     <div id="loader-bg">
         <div id="loader-floating"></div>
         <div id="loader-logo-container">
-            <video id="loader-logo" src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/ivslogovid300725.mp4" autoplay muted loop playsinline></video>
+            <video id="loader-logo"
+                src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/ivslogovid300725.mp4" autoplay
+                muted loop playsinline></video>
         </div>
         <div id="loader-bar-bg">
             <div id="loader-bar"></div>
@@ -764,24 +950,20 @@
     </div>
 
     <div id="background-floating-images"></div>
+    <div class="bg-logo-texture"></div>
 
     <header>
         <div class="header-content">
             <h1>IntegraVision Studio</h1>
             <button id="theme-toggle" title="Cambiar tema">
-            <i class="fas fa-moon"></i>
+                <i class="fas fa-moon"></i>
             </button>
             <p>Transformando la educación a través de soluciones audiovisuales integradas.</p>
         </div>
-        <video
-            id="main-logo-video"
+        <video id="main-logo-video"
             src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/ivslogovid300725.mp4"
-            alt="Logo Integravision"
-            class="logo-redondo"
-            muted
-            playsinline
-            title="Haz click para animar el logo"
-        ></video>
+            alt="Logo Integravision" class="logo-redondo" muted playsinline
+            title="Haz click para animar el logo"></video>
         <div class="nav-buttons-container">
             <a class="hero-button" href="#page-gallery">Nuestra Galería</a>
             <a class="hero-button" href="#page-contact-news">Contáctanos y Noticias</a>
@@ -800,23 +982,9 @@
         </div>
 
         <div id="gallery-container">
-            </div>
-
-        <div class="lightbox" id="image-lightbox">
-            <img id="lightbox-img" src="" alt="Imagen ampliada" />
-            <div class="controls">
-                <i class="fas fa-arrow-left" onclick="navigateLightbox(-1)" aria-label="Imagen anterior"></i>
-                <i class="fas fa-times" onclick="closeImageLightbox()" aria-label="Cerrar"></i>
-                <i class="fas fa-arrow-right" onclick="navigateLightbox(1)" aria-label="Imagen siguiente"></i>
-            </div>
         </div>
 
-        <div class="lightbox" id="video-lightbox">
-            <video id="lightbox-video" src="" controls muted></video>
-            <div class="controls">
-                <i class="fas fa-times" onclick="closeVideoLightbox()" aria-label="Cerrar"></i>
-            </div>
-        </div>
+
     </section>
 
     <section id="page-contact-news" class="page-section">
@@ -836,7 +1004,8 @@
             </div>
             <div id="rave-news">
                 <h3>
-                    <img src="https://www.ravepubs.com/wp-content/themes/md-changes/img/rave-logo.png" alt="RavePubs" style="height: 24px; vertical-align: middle" />
+                    <img src="https://www.ravepubs.com/wp-content/themes/md-changes/img/rave-logo.png" alt="RavePubs"
+                        style="height: 24px; vertical-align: middle" />
                     Noticias rAVe&thinsp;[PUBS]
                 </h3>
                 <ul id="rave-feed"></ul>
@@ -847,17 +1016,28 @@
     <section id="page-thanks" class="page-section thank-you-section">
         <h2>✅ ¡Gracias por contactarnos!</h2>
         <p>
-            Apreciamos sinceramente tu interés en IntegraVision Studio. Tu mensaje ha sido recibido con éxito y nuestro equipo está revisándolo cuidadosamente.
-            Nos esforzamos por ofrecer soluciones audiovisuales integradas de la más alta calidad para transformar la educación y otros espacios, impulsando la innovación y la eficiencia en cada proyecto. Nuestra misión es crear ambientes de aprendizaje dinámicos y colaborativos mediante tecnologías de vanguardia.
+            Apreciamos sinceramente tu interés en IntegraVision Studio. Tu mensaje ha sido recibido con éxito y nuestro
+            equipo está revisándolo cuidadosamente.
+            Nos esforzamos por ofrecer soluciones audiovisuales integradas de la más alta calidad para transformar la
+            educación y otros espacios, impulsando la innovación y la eficiencia en cada proyecto. Nuestra misión es
+            crear ambientes de aprendizaje dinámicos y colaborativos mediante tecnologías de vanguardia.
         </p>
         <p>
-            En breve, uno de nuestros especialistas se pondrá en contacto contigo para entender mejor tus necesidades y explorar cómo podemos ayudarte a alcanzar tus objetivos. Nos comprometemos a proporcionarte una atención personalizada, un asesoramiento experto y soluciones a medida que no solo satisfagan, sino que superen tus expectativas. La integración audiovisual es nuestra pasión y la educación, nuestra vocación.
+            En breve, uno de nuestros especialistas se pondrá en contacto contigo para entender mejor tus necesidades y
+            explorar cómo podemos ayudarte a alcanzar tus objetivos. Nos comprometemos a proporcionarte una atención
+            personalizada, un asesoramiento experto y soluciones a medida que no solo satisfagan, sino que superen tus
+            expectativas. La integración audiovisual es nuestra pasión y la educación, nuestra vocación.
         </p>
         <p>
-            Mientras tanto, te invitamos a explorar más sobre nuestros proyectos recientes en la galería para que conozcas la diversidad y calidad de nuestras implementaciones en diversas instituciones educativas y corporativas. También puedes revisar las últimas noticias del sector en rAVe [PUBS] para mantenerte al día con las tendencias e innovaciones en tecnología audiovisual que aplicamos en nuestros servicios.
+            Mientras tanto, te invitamos a explorar más sobre nuestros proyectos recientes en la galería para que
+            conozcas la diversidad y calidad de nuestras implementaciones en diversas instituciones educativas y
+            corporativas. También puedes revisar las últimas noticias del sector en rAVe [PUBS] para mantenerte al día
+            con las tendencias e innovaciones en tecnología audiovisual que aplicamos en nuestros servicios.
         </p>
         <p>
-            ¡Gracias por tu paciencia y por elegir a IntegraVision Studio como tu aliado estratégico en el camino hacia la excelencia audiovisual y educativa! Esperamos construir una relación duradera y exitosa contigo, contribuyendo al avance tecnológico de tu institución.
+            ¡Gracias por tu paciencia y por elegir a IntegraVision Studio como tu aliado estratégico en el camino hacia
+            la excelencia audiovisual y educativa! Esperamos construir una relación duradera y exitosa contigo,
+            contribuyendo al avance tecnológico de tu institución.
         </p>
         <button onclick="window.location.href = '#page-gallery'">
             Volver a la Galería
@@ -1088,7 +1268,7 @@
         // --- SECCIÓN: FONDOS Y ANIMACIONES VISUALES ---
         function initBackgrounds() {
             const allImageUrls = Object.values(galleries).flatMap(gallery => gallery.items.filter(item => item.type === 'image').map(item => GITHUB_BASE_URL + item.src));
-            
+
             const random = (min, max) => Math.random() * (max - min) + min;
 
             // Elementos flotantes del loader
@@ -1107,7 +1287,7 @@
                 img.dataset.dy = random(0.7, 1.4) * (Math.random() > 0.5 ? 1 : -1);
                 area.appendChild(img);
             });
-            
+
             function animateFloating() {
                 const elements = area.children;
                 for (let el of elements) {
@@ -1146,7 +1326,7 @@
                 backgroundArea.appendChild(img);
             }
         }
-        
+
         // --- SECCIÓN: GALERÍA Y LIGHTBOX ---
         let currentGalleryItems = [];
         let currentItemIndex = 0;
@@ -1171,13 +1351,13 @@
         function renderGalleries(galleriesToRender) {
             const galleryContainer = document.getElementById('gallery-container');
             galleryContainer.innerHTML = ''; // Limpiar contenedor
-            
+
             for (const key in galleriesToRender) {
                 const galleryData = galleriesToRender[key];
                 const galleryWrapper = document.createElement('div');
                 galleryWrapper.id = `gallery-${key}`;
                 galleryWrapper.className = 'gallery';
-                
+
                 galleryWrapper.innerHTML = `
                     <h3 class="gallery-title">${galleryData.title}</h3>
                     <div class="gallery-grid"></div>
@@ -1201,14 +1381,14 @@
                             <div class="video-overlay"><i class="fas fa-play"></i></div>
                         `;
                     }
-                    
+
                     itemElement.addEventListener('click', () => openLightbox(itemElement));
                     grid.appendChild(itemElement);
                 });
                 galleryContainer.appendChild(galleryWrapper);
             }
         }
-        
+
         function filterGalleries(filter) {
             if (filter === 'all') {
                 renderGalleries(galleries);
@@ -1219,52 +1399,50 @@
         }
 
         function openLightbox(element) {
-            const type = element.dataset.type;
             const src = element.dataset.src;
             const galleryKey = element.dataset.gallery;
-            
-            currentGalleryItems = galleries[galleryKey].items.filter(item => item.type === type);
-            const currentItem = currentGalleryItems.find(item => GITHUB_BASE_URL + item.src === src);
-            currentItemIndex = currentGalleryItems.indexOf(currentItem);
 
-            if (type === 'image') {
-                openImageLightbox(src);
-            } else if (type === 'video') {
-                openVideoLightbox(src);
+            // Allow mixed types navigation
+            currentGalleryItems = galleries[galleryKey].items;
+
+            const currentItem = currentGalleryItems.find(item => GITHUB_BASE_URL + item.src === src);
+            if (currentItem) {
+                currentItemIndex = currentGalleryItems.indexOf(currentItem);
+                updateLightboxContent(currentItem);
+                document.getElementById('media-lightbox').style.display = 'flex';
             }
         }
-        
-        function openImageLightbox(src) {
-            const lightbox = document.getElementById('image-lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = src;
-            lightbox.style.display = 'flex';
+
+        function updateLightboxContent(item) {
+            const img = document.getElementById('lightbox-img');
+            const video = document.getElementById('lightbox-video');
+            const fullSrc = GITHUB_BASE_URL + item.src;
+
+            if (item.type === 'image') {
+                video.style.display = 'none';
+                video.pause();
+                img.src = fullSrc;
+                img.style.display = 'block';
+            } else if (item.type === 'video') {
+                img.style.display = 'none';
+                video.src = fullSrc;
+                video.style.display = 'block';
+                video.play().catch(e => console.log('Autoplay blocked', e));
+            }
         }
 
-        function closeImageLightbox() {
-            document.getElementById('image-lightbox').style.display = 'none';
-        }
-
-        function openVideoLightbox(src) {
-            const lightbox = document.getElementById('video-lightbox');
-            const lightboxVideo = document.getElementById('lightbox-video');
-            lightboxVideo.src = src;
-            lightbox.style.display = 'flex';
-            lightboxVideo.play();
-        }
-
-        function closeVideoLightbox() {
-            const lightbox = document.getElementById('video-lightbox');
-            const lightboxVideo = document.getElementById('lightbox-video');
-            lightboxVideo.pause();
-            lightboxVideo.src = '';
+        function closeMediaLightbox() {
+            const lightbox = document.getElementById('media-lightbox');
+            const video = document.getElementById('lightbox-video');
+            video.pause();
+            video.src = '';
             lightbox.style.display = 'none';
         }
 
         function navigateLightbox(direction) {
             currentItemIndex = (currentItemIndex + direction + currentGalleryItems.length) % currentGalleryItems.length;
             const nextItem = currentGalleryItems[currentItemIndex];
-            openImageLightbox(GITHUB_BASE_URL + nextItem.src);
+            updateLightboxContent(nextItem);
         }
 
         // --- SECCIÓN: NOTICIAS, TEMA Y OTROS ---
@@ -1308,7 +1486,7 @@
                 const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
                 setTheme(newTheme);
             });
-            
+
             applyTheme();
         }
 
@@ -1321,17 +1499,26 @@
                 });
             }
         }
-        
+
         // Cerrar lightboxes con la tecla ESC
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Escape') return;
-            if (document.getElementById('image-lightbox').style.display === 'flex') {
-                closeImageLightbox();
-            }
-            if (document.getElementById('video-lightbox').style.display === 'flex') {
-                closeVideoLightbox();
+            if (document.getElementById('media-lightbox').style.display === 'flex') {
+                closeMediaLightbox();
             }
         });
     </script>
+    <div class="lightbox" id="media-lightbox">
+        <div id="lightbox-content-wrapper">
+            <img id="lightbox-img" src="" alt="Vista previa" style="display: none;">
+            <video id="lightbox-video" src="" controls style="display: none;"></video>
+        </div>
+        <div class="controls">
+            <i class="fas fa-chevron-left" onclick="navigateLightbox(-1)" title="Anterior"></i>
+            <i class="fas fa-times" onclick="closeMediaLightbox()" title="Cerrar"></i>
+            <i class="fas fa-chevron-right" onclick="navigateLightbox(1)" title="Siguiente"></i>
+        </div>
+    </div>
 </body>
+
 </html>
