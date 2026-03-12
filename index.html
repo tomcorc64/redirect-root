@@ -23,11 +23,8 @@
 
         #theme-toggle {
             position: absolute;
-            top: 50%;
-            right: 30px;
-            /* Distancia desde la derecha */
-            transform: translateY(-50%);
-            /* Centrado vertical perfecto */
+            top: 20px;
+            right: 20px;
             background: none;
             border: none;
             color: var(--white-color);
@@ -35,10 +32,11 @@
             /* Tamaño del ícono */
             cursor: pointer;
             transition: transform 0.2s ease;
+            z-index: 2000;
         }
 
         #theme-toggle:hover {
-            transform: translateY(-50%) scale(1.15);
+            transform: scale(1.15);
             /* Efecto al pasar el mouse */
         }
 
@@ -255,96 +253,82 @@
         header {
             background-color: var(--primary-color);
             color: white;
-            padding-top: 0rem;
-            padding-bottom: 1rem;
-            /* Ajuste el padding para los botones */
-            text-align: center;
+            padding: 1rem 2rem;
             position: fixed;
-            /* Fijo en la parte superior */
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            /* Asegura que esté por encima de todo el contenido y el fondo */
             border-radius: 0 0 12px 12px;
             box-shadow: var(--box-shadow-light);
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            box-sizing: border-box;
         }
 
         .header-content {
-            text-align: center;
-            padding-top: 1rem;
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            padding-bottom: 0.5rem;
-            /* Espacio antes de los botones */
+            text-align: left;
+            flex: 1;
+            padding: 0 1rem;
+            min-width: 250px;
         }
 
         header h1 {
             font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
             margin-top: 0;
-            /* Eliminar margen superior predeterminado */
         }
 
         header p {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            /* Menos margen para acercar los botones */
+            font-size: 1.1rem;
+            margin-bottom: 0;
         }
 
-        /* Logo aumentado un 30% con borde plomo y efecto hover */
+        /* Logo redimensionado e integrado al flujo flex */
         .logo-redondo {
-            width: 292.5px;
-            /* 225 * 1.3 */
-            height: 292.5px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
-            position: absolute;
-            bottom: -146.25px;
-            /* Mitad del tamaño para que quede justo al centro del borde inferior */
-            left: 50px;
-            /* Alineado a la izquierda */
-            border: 5px solid var(--gray-border);
-            transition: transform 0.3s ease;
+            border: 4px solid var(--gray-border);
+            transition: transform 0.4s ease;
             box-sizing: border-box;
             background-color: var(--white-color);
             z-index: 1010;
-            /* Encima del header */
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            position: relative;
         }
 
         .logo-redondo:hover {
-            transform: scale(1.05);
+            transform: scale(1.5);
             cursor: pointer;
+            z-index: 2000;
         }
 
         /* Botones de navegación */
         .nav-buttons-container {
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
+            align-items: center;
             gap: 1rem;
-            width: 100%;
             padding: 0.5rem 0;
-            /* Un poco de padding para los botones */
             box-sizing: border-box;
+            flex-wrap: wrap;
         }
 
         .hero-button {
             background-color: var(--secondary-color);
             color: var(--white-color);
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1.25rem;
             border: none;
             border-radius: 5px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             text-decoration: none;
             transition: background-color 0.3s ease;
             white-space: nowrap;
-            /* Evita que los botones se rompan en varias líneas */
         }
 
         .hero-button:hover {
@@ -358,21 +342,16 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            /* Centra el contenido verticalmente */
             align-items: center;
             padding: 2rem;
             box-sizing: border-box;
             scroll-snap-align: start;
-            /* Alinea el inicio de la sección con el borde del contenedor de scroll */
             position: relative;
             z-index: 2;
-            /* Asegura que el contenido de la página esté sobre el fondo flotante */
             background-color: rgba(255, 255, 255, 0.85);
-            /* Fondo semi-transparente para la página para que el contenido sea legible */
-            padding-top: 350px;
-            /* Espacio para el header fijo y el logo, ajustado */
+            padding-top: 180px;
+            /* Reducido drásticamente porque el logo ahora es pequeño */
             overflow-y: auto;
-            /* Permite el scroll dentro de la sección si el contenido es demasiado grande */
         }
 
         /* Galería */
@@ -732,13 +711,28 @@
 
 
         /* Media Queries para Responsividad */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .header-content {
+                text-align: center;
+                padding: 1rem 0;
+            }
+
+            .nav-buttons-container {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
             header {
                 padding-bottom: 0.5rem;
                 border-radius: 0;
-                /* Sin bordes redondeados en móviles */
                 position: static;
-                /* No fijo en móviles, se desplaza con el contenido */
                 height: auto;
             }
 
@@ -751,24 +745,13 @@
             }
 
             .logo-redondo {
-                position: static;
-                /* Se comporta como un elemento normal */
-                width: 150px;
-                height: 150px;
-                margin: 0.5rem auto 1rem auto;
-                /* Centrar y margen inferior */
-                display: block;
-                transform: none;
-                /* Eliminar cualquier transformación */
-                left: auto;
-                bottom: auto;
-                filter: none;
-                /* Sin sombra en móviles */
+                width: 100px;
+                height: 100px;
+                margin: 0.5rem auto;
             }
 
             .nav-buttons-container {
                 flex-direction: column;
-                /* Botones apilados */
                 gap: 0.5rem;
                 padding: 0 1rem;
             }
@@ -1059,6 +1042,295 @@
                 opacity: 1;
             }
         }
+
+        /* --- ESTILOS NUEVOS: WHATSAPP, PARALLAX, LOGITECH --- */
+
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 35px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            animation: pulse-wa 2s infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse-wa {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 30px;
+            }
+        }
+
+        .logitech-section-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            box-shadow: var(--box-shadow-medium);
+            z-index: 3;
+            position: relative;
+        }
+
+        body.dark-mode .logitech-section-container {
+            background-color: rgba(23, 23, 23, 0.95);
+        }
+
+        .logitech-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 2.5rem;
+            margin-top: 0;
+        }
+
+        .logitech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .logitech-card {
+            background: var(--white-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid transparent;
+        }
+
+        .logitech-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .logitech-card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 220px;
+            border-bottom: 4px solid var(--secondary-color);
+        }
+
+        .logitech-carousel-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 0.5s ease;
+        }
+
+        .logitech-carousel-img.active {
+            opacity: 1;
+        }
+
+        .logitech-card:hover .logitech-carousel-img.active {
+            transform: scale(1.05);
+        }
+
+        .logitech-card-content {
+            padding: 1.5rem;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logitech-card h3 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .av-parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 0;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        body.dark-mode .av-parallax-bg {
+            opacity: 0.05;
+        }
+
+        @media (max-width: 768px) {
+            .av-parallax-bg {
+                background-attachment: scroll;
+            }
+
+            .logitech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- REDISEÑO SECCIÓN CONTABILIDAD (GLASSMORPHISM + PARALLAX CAROUSEL) --- */
+        #accounting-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            overflow: hidden;
+        }
+
+        .accounting-parallax-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .accounting-bg-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .accounting-bg-slide.active {
+            opacity: 1;
+        }
+
+        .accounting-glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            width: 90%;
+            max-width: 650px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            color: #fff;
+            position: relative;
+            z-index: 10;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .accounting-glass-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .accounting-glass-card h1 {
+            color: var(--secondary-color);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .accounting-banner {
+            background: rgba(251, 191, 36, 0.2);
+            border: 2px solid var(--secondary-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% { border-color: var(--secondary-color); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+            70% { border-color: #fff; box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
+            100% { border-color: var(--secondary-color); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+        }
+
+        .accounting-wa-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+
+        .accounting-wa-link:hover {
+            transform: scale(1.05);
+        }
+
+        .accounting-wa-link i {
+            color: #25D366;
+            font-size: 2.2rem;
+        }
+
+        @media (max-width: 600px) {
+            .accounting-glass-card {
+                padding: 2rem 1rem;
+            }
+            .accounting-glass-card h1 {
+                font-size: 1.6rem;
+            }
+            .accounting-wa-link {
+                font-size: 1.4rem;
+            }
+        }
     </style>
 </head>
 
@@ -1097,40 +1369,42 @@
 
     <!-- VISTA DE CONTABILIDAD -->
     <div id="accounting-view">
-        <div class="accounting-content">
-            <div class="selection-logo-container" style="margin: 0 auto 1rem auto; width: 150px; height: 150px;">
+        <div class="accounting-parallax-container" id="accounting-carousel-bg">
+            <div class="accounting-bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2022&auto=format&fit=crop')"></div>
+            <div class="accounting-bg-slide" style="background-image: url('https://images.unsplash.com/photo-1454165833767-0274b0596dba?q=80&w=2070&auto=format&fit=crop')"></div>
+            <div class="accounting-bg-slide" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2071&auto=format&fit=crop')"></div>
+        </div>
+
+        <div class="accounting-glass-card">
+            <div class="selection-logo-container" style="margin: 0 auto 1.5rem auto; width: 140px; height: 140px;">
                 <video src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/ivslogovid300725.mp4"
-                    autoplay muted loop playsinline style="border-width: 4px;"></video>
+                    autoplay muted loop playsinline></video>
             </div>
-            <h1 style="color: var(--secondary-color); font-size: 2rem; margin: 0.5rem 0;">INTEGRAVISION STUDIO</h1>
-            <p style="font-size: 1.1rem; margin-bottom: 1rem; font-weight: bold; color: var(--primary-color);">
+            <h1>INTEGRAVISION STUDIO</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 500;">
                 ¡Bienvenido a nuestro espacio de servicios integrales!</p>
 
-            <div
-                style="background: rgba(250, 204, 21, 0.1); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; border: 1px solid var(--secondary-color);">
-                <p style="font-size: 1.2rem; font-weight: bold; color: var(--primary-color); margin: 0 0 0.5rem 0;">
+            <div class="accounting-banner">
+                <p style="font-size: 1.2rem; font-weight: bold; color: var(--secondary-color); margin: 0 0 0.5rem 0; text-transform: uppercase; letter-spacing: 1px;">
                     ¡NUEVO SERVICIO DISPONIBLE!
                 </p>
-                <p style="font-size: 1.1rem; margin:0; line-height: 1.5;">
+                <p style="font-size: 1.15rem; margin:0; line-height: 1.4;">
                     Consultoría y Asesoría Contable para tu Negocio 💼✨
                 </p>
             </div>
 
-
-
-            <div
-                style="display: flex; justify-content: center; align-items: center; gap: 0.8rem; font-size: 1.4rem; margin-bottom: 2rem; color: var(--primary-color);">
-                <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+            <a href="https://wa.me/51955503243" target="_blank" class="accounting-wa-link">
+                <i class="fab fa-whatsapp"></i>
                 <span>955503243</span>
-            </div>
-
-            <a href="https://tiktok.com/@integravisionstudio" target="_blank" class="hero-button"
-                style="display: inline-flex; align-items: center; gap: 0.5rem; background: #000; margin-bottom: 2rem; padding: 1rem 2rem; border-radius: 50px;">
-                <i class="fab fa-tiktok"></i> Visítanos en TikTok
             </a>
 
-            <div class="back-button-container">
-                <button class="filter-button" onclick="showSelectionView()">
+            <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                <a href="https://tiktok.com/@integravisionstudio" target="_blank" class="hero-button"
+                    style="display: inline-flex; align-items: center; gap: 0.5rem; background: #000; border: none; width: fit-content; padding: 1rem 2.5rem; border-radius: 50px; font-weight: bold;">
+                    <i class="fab fa-tiktok"></i> Visítanos en TikTok
+                </a>
+
+                <button class="hero-button" onclick="showSelectionView()" style="background: transparent; border: 2px solid var(--secondary-color); color: var(--secondary-color); padding: 0.8rem 2rem; border-radius: 50px;">
                     <i class="fas fa-arrow-left"></i> Volver a Seleccionar
                 </button>
             </div>
@@ -1139,25 +1413,27 @@
 
     <div id="background-floating-images"></div>
     <div class="bg-logo-texture"></div>
+    <div class="av-parallax-bg av-view" style="display: none;"></div>
 
     <header class="av-view" style="display: none;">
-        <div class="header-content">
-            <h1>IntegraVision Studio</h1>
-            <button id="theme-toggle" title="Cambiar tema">
-                <i class="fas fa-moon"></i>
-            </button>
-            <p>Transformando la educación a través de soluciones audiovisuales integradas.</p>
-        </div>
         <video id="main-logo-video"
             src="https://raw.githubusercontent.com/tomcorc64/integravision-web/main/ivslogovid300725.mp4"
             alt="Logo Integravision" class="logo-redondo" muted playsinline
             title="Haz click para animar el logo"></video>
+        <div class="header-content">
+            <h1>IntegraVision Studio</h1>
+            <p>Transformando la educación a través de soluciones audiovisuales integradas.</p>
+        </div>
         <div class="nav-buttons-container">
             <a class="hero-button" href="#page-gallery">Nuestra Galería</a>
+            <a class="hero-button" href="#page-logitech">Soluciones Logitech</a>
             <a class="hero-button" href="#page-contact-news">Contáctanos y Noticias</a>
             <a class="hero-button" href="#page-thanks">Agradecimiento</a>
             <button class="hero-button" onclick="showSelectionView()">Volver a Seleccionar</button>
         </div>
+        <button id="theme-toggle" title="Cambiar tema">
+            <i class="fas fa-moon"></i>
+        </button>
     </header>
 
     <section id="page-gallery" class="page-section av-view" style="display: none;">
@@ -1174,6 +1450,89 @@
         </div>
 
 
+    </section>
+
+    <section id="page-logitech" class="page-section av-view" style="display: none;">
+        <div class="logitech-section-container">
+            <h2 class="logitech-title">Soluciones Logitech</h2>
+            <div class="logitech-grid">
+                <a href="https://www.logitech.com/es-mx/products/video-conferencing/conference-cameras.html"
+                    target="_blank" class="logitech-card">
+                    <div class="logitech-card-img-wrapper">
+                        <img class="logitech-carousel-img active" src="imagenes logitech/vc1.jpg"
+                            alt="Rally Bar / Videollamadas 1">
+                        <img class="logitech-carousel-img" src="imagenes logitech/vc2.jpeg"
+                            alt="MeetUp / Videollamadas 2">
+                        <img class="logitech-carousel-img" src="imagenes logitech/vc3.jpeg"
+                            alt="Cámaras de conferencia / Videollamadas 3">
+                    </div>
+                    <div class="logitech-card-content">
+                        <h3>Soluciones de videollamadas</h3>
+                    </div>
+                </a>
+                <a href="https://www.logitech.com/es-mx/business/solutions.html#work-desks" target="_blank"
+                    class="logitech-card">
+                    <div class="logitech-card-img-wrapper">
+                        <img class="logitech-carousel-img active" src="imagenes logitech/pw1.jpg"
+                            alt="Espacio personal de trabajo 1">
+                        <img class="logitech-carousel-img" src="imagenes logitech/pw2.jpg" alt="Teclado y mouse MX 2">
+                        <img class="logitech-carousel-img" src="imagenes logitech/pw3.jpg" alt="Auriculares Zone 3">
+                    </div>
+                    <div class="logitech-card-content">
+                        <h3>Soluciones de espacio personal de trabajo</h3>
+                    </div>
+                </a>
+                <a href="https://www.logitechg.com/es-roam" target="_blank" class="logitech-card">
+                    <div class="logitech-card-img-wrapper">
+                        <img class="logitech-carousel-img active" src="imagenes logitech/g1.jpg"
+                            alt="Soluciones de gaming 1">
+                        <img class="logitech-carousel-img" src="imagenes logitech/g2.jpg" alt="Ratón gaming 2">
+                        <img class="logitech-carousel-img" src="imagenes logitech/g3.jpg"
+                            alt="Teclado mecánico gaming 3">
+                    </div>
+                    <div class="logitech-card-content">
+                        <h3>Soluciones de gaming</h3>
+                    </div>
+                </a>
+                <a href="https://www.logitechg.com/es-roam/products/driving.html" target="_blank" class="logitech-card">
+                    <div class="logitech-card-img-wrapper">
+                        <img class="logitech-carousel-img active" src="imagenes logitech/s1.png" alt="Simulación 1">
+                        <img class="logitech-carousel-img" src="imagenes logitech/s2.png" alt="Volante de carreras 2">
+                        <img class="logitech-carousel-img" src="imagenes logitech/s3.jpg"
+                            alt="Sistemas de simulación 3">
+                    </div>
+                    <div class="logitech-card-content">
+                        <h3>Simulación</h3>
+                    </div>
+                </a>
+                <a href="https://www.logitechg.com/es-mx/discover/c/streaming-gear" target="_blank"
+                    class="logitech-card">
+                    <div class="logitech-card-img-wrapper">
+                        <img class="logitech-carousel-img active" src="imagenes logitech/st1.png"
+                            alt="Streaming y creación de contenido 1">
+                        <img class="logitech-carousel-img" src="imagenes logitech/st2.png" alt="Micrófono Yeti 2">
+                        <img class="logitech-carousel-img" src="imagenes logitech/st3.jpeg"
+                            alt="Cámara y luces streaming 3">
+                    </div>
+                    <div class="logitech-card-content">
+                        <h3>Streaming y creación de contenido</h3>
+                    </div>
+                </a>
+                <a href="https://www.logitech.com/es-es/education.html" target="_blank" class="logitech-card">
+                    <div class="logitech-card-img-wrapper">
+                        <img class="logitech-carousel-img active" src="imagenes logitech/ed1.png"
+                            alt="Movilidad y educación 1">
+                        <img class="logitech-carousel-img" src="imagenes logitech/ed2.png"
+                            alt="Funda con teclado para iPad 2">
+                        <img class="logitech-carousel-img" src="imagenes logitech/ed3.png"
+                            alt="Estudiantes y laptops 3">
+                    </div>
+                    <div class="logitech-card-content">
+                        <h3>Movilidad y educación</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
     </section>
 
     <section id="page-contact-news" class="page-section av-view" style="display: none;">
@@ -1426,7 +1785,26 @@
             initThemeToggle();
             initMainLogoVideo();
             initGallery();
+            initLogitechCarousels();
         });
+
+        function initLogitechCarousels() {
+            const cards = document.querySelectorAll('.logitech-card');
+            cards.forEach(card => {
+                const images = card.querySelectorAll('.logitech-carousel-img');
+                if (images.length <= 1) return;
+
+                let currentIndex = 0;
+                // Desfase aleatorio para que no cambien todas exactamente al mismo tiempo
+                setTimeout(() => {
+                    setInterval(() => {
+                        images[currentIndex].classList.remove('active');
+                        currentIndex = (currentIndex + 1) % images.length;
+                        images[currentIndex].classList.add('active');
+                    }, 3500); // Cambio cada 3.5s
+                }, Math.random() * 1500);
+            });
+        }
 
         // --- SECCIÓN: PANTALLA DE CARGA Y LOGICA DE VISTAS (MODIFICADO) ---
         function initLoader() {
@@ -1465,7 +1843,17 @@
                 el.style.display = 'none'; // Ensure inline style is applied for initial load
             });
 
+            // Ocultar botón flotante de WhatsApp en selección
+            const waBtn = document.getElementById('whatsapp-btn');
+            if (waBtn) waBtn.style.display = 'none';
+
             document.body.style.overflowY = 'hidden'; // Bloquear scroll en selección
+
+            // Limpiar carrusel de contabilidad para ahorrar recursos
+            if (window.accountingInterval) {
+                clearInterval(window.accountingInterval);
+                window.accountingInterval = null;
+            }
         }
 
         function showAVService() {
@@ -1477,6 +1865,13 @@
                 el.style.display = ''; // Remover display: none
                 el.classList.remove('view-hidden');
             });
+
+            // Mostrar botón flotante de WhatsApp
+            const waBtn = document.getElementById('whatsapp-btn');
+            if (waBtn) {
+                waBtn.style.display = 'flex';
+                waBtn.href = "https://wa.me/51993498611"; // Número oficial AV
+            }
 
             document.body.style.overflowY = 'scroll'; // Habilitar scroll snap
         }
@@ -1491,7 +1886,31 @@
                 el.style.display = 'none';
             });
 
-            document.body.style.overflowY = 'hidden'; // Bloquear scroll del body (el div tiene overflow)
+            // Mostrar botón flotante de WhatsApp con número contable
+            const waBtn = document.getElementById('whatsapp-btn');
+            if (waBtn) {
+                waBtn.style.display = 'flex';
+                waBtn.href = "https://wa.me/51955503243"; 
+            }
+
+            document.body.style.overflowY = 'hidden'; // Bloquear scroll
+            
+            initAccountingCarousel();
+        }
+
+        function initAccountingCarousel() {
+            // Evitar duplicar intervalos
+            if (window.accountingInterval) return;
+            
+            const slides = document.querySelectorAll('.accounting-bg-slide');
+            if (slides.length <= 1) return;
+
+            let currentSlide = 0;
+            window.accountingInterval = setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 5000); 
         }
 
         // Exportar funciones globalmente para el HTML onClick
@@ -1753,6 +2172,12 @@
             <i class="fas fa-chevron-right" onclick="navigateLightbox(1)" title="Siguiente"></i>
         </div>
     </div>
+
+    <!-- Botón flotante de WhatsApp oculto por defecto -->
+    <a href="https://wa.me/51993498611" id="whatsapp-btn" class="whatsapp-float" style="display: none;" target="_blank"
+        title="Contáctanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 </body>
 
 </html>
